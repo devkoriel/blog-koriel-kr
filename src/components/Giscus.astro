@@ -5,27 +5,40 @@
   <div class="giscus"></div>
 </section>
 
-<script
-  is:inline
-  src="https://giscus.app/client.js"
-  data-repo="devkoriel/blog-koriel-kr"
-  data-repo-id="R_kgDORVH_1w"
-  data-category="General"
-  data-category-id="DIC_kwDORVH_184C247J"
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="top"
-  data-theme="preferred_color_scheme"
-  data-lang="en"
-  data-loading="lazy"
-  crossorigin="anonymous"
-  async
-></script>
-
 <script is:inline data-astro-rerun>
-  function updateGiscusTheme() {
+  (function loadGiscus() {
+    const container = document.querySelector(".giscus");
+    if (!container) return;
+
+    // Remove any existing iframe from previous navigation
+    container.innerHTML = "";
+
+    const theme =
+      document.documentElement.getAttribute("data-theme") === "dark"
+        ? "dark"
+        : "light";
+
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute("data-repo", "devkoriel/blog-koriel-kr");
+    script.setAttribute("data-repo-id", "R_kgDORVH_1w");
+    script.setAttribute("data-category", "General");
+    script.setAttribute("data-category-id", "DIC_kwDORVH_184C247J");
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", theme);
+    script.setAttribute("data-lang", "en");
+    script.setAttribute("data-loading", "lazy");
+    script.crossOrigin = "anonymous";
+    script.async = true;
+    container.appendChild(script);
+  })();
+
+  // Update theme when toggled
+  const observer = new MutationObserver(() => {
     const theme = document.documentElement.getAttribute("data-theme");
     const giscusFrame = document.querySelector("iframe.giscus-frame");
     if (giscusFrame) {
@@ -40,10 +53,7 @@
         "https://giscus.app"
       );
     }
-  }
-
-  // Update theme when toggled
-  const observer = new MutationObserver(() => updateGiscusTheme());
+  });
   observer.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["data-theme"],
