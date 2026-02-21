@@ -3,35 +3,22 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+Hi, I'm **Jinsoo Heo** — a DevOps Engineer at [Chronicle Labs](https://chroniclelabs.org), the decentralized oracle network securing DeFi protocols.
 
-![Astro Paper](public/astropaper-og.jpg)
+I build and operate Kubernetes-based oracle infrastructure on AWS EKS, drive GitOps adoption with ArgoCD, and design observability platforms with Grafana, Mimir, and Loki.
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+Previously, I worked at **Dunamu** ([Upbit](https://upbit.com)) and **PUBG**, where I focused on high-availability infrastructure, service mesh, eBPF-powered observability, and DDoS protection at scale.
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+## What I Write About
 
-## Features
+- **DevOps & Infrastructure** — Kubernetes, GitOps, CI/CD, Terraform
+- **Observability** — Grafana, Prometheus, Loki, eBPF
+- **Web3** — Oracle infrastructure, on-chain data delivery, DeFi security
+- **Programming** — Go, Python, system-level engineering
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+## Connect
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
-
-and so much more.
-
-## Show your support
-
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
-
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
-
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
-
-Kyay zuu! 🙏🏼
+- GitHub: [@devkoriel](https://github.com/devkoriel)
+- X: [@devkoriel](https://x.com/devkoriel)
+- LinkedIn: [devkoriel](https://www.linkedin.com/in/devkoriel/)
+- Email: [dev.koriel@gmail.com](mailto:dev.koriel@gmail.com)
