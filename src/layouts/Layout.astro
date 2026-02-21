@@ -2,7 +2,6 @@
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { PUBLIC_CF_ANALYTICS_TOKEN } from "astro:env/client";
-import { PUBLIC_WALINE_SERVER_URL } from "astro:env/client";
 import { SITE } from "@/config";
 import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
@@ -88,7 +87,6 @@ const structuredData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="preload" href={geistFontUrl} as="font" type="font/woff2" crossorigin />
-    {PUBLIC_WALINE_SERVER_URL && <link rel="preconnect" href={PUBLIC_WALINE_SERVER_URL} />}
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32" />
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />

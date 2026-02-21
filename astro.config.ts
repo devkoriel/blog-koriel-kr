@@ -72,11 +72,6 @@ export default defineConfig({
         context: "client",
         optional: true,
       }),
-      PUBLIC_WALINE_SERVER_URL: envField.string({
-        access: "public",
-        context: "client",
-        optional: true,
-      }),
     },
   },
   experimental: {

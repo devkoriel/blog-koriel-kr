@@ -19,7 +19,6 @@
     "@fontsource-variable/geist-mono": "^5.2.7",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.1.18",
-    "@waline/client": "^3.12.2",
     "astro": "^5.16.6",
     "dayjs": "^1.11.19",
     "lodash.kebabcase": "^4.1.1",
