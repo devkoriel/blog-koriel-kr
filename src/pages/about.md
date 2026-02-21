@@ -3,7 +3,7 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-Hi, I'm **Jinsoo Heo** — a DevOps Engineer at [Chronicle Labs](https://chroniclelabs.org), the decentralized oracle network securing DeFi protocols.
+Hi, I'm **Jinsoo Heo** — a DevOps Engineer at [Chronicle](https://chroniclelabs.org), the decentralized oracle network securing DeFi protocols.
 
 I build and operate Kubernetes-based oracle infrastructure on AWS EKS, drive GitOps adoption with ArgoCD, and design observability platforms with Grafana, Mimir, and Loki.
 
