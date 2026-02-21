@@ -1,4 +1,6 @@
 ---
+import { SITE } from "@/config";
+
 // Remove current url path and remove trailing slash if exists
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
 
@@ -21,8 +23,37 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
     `${breadcrumbList[1]} ${Number(breadcrumbList[2]) === 1 ? "" : "(page " + breadcrumbList[2] + ")"}`
   );
 }
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: SITE.website,
+    },
+    ...breadcrumbList.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 2,
+      name: decodeURIComponent(crumb),
+      ...(index + 1 < breadcrumbList.length && {
+        item: new URL(
+          `/${breadcrumbList.slice(0, index + 1).join("/")}/`,
+          SITE.website
+        ).href,
+      }),
+    })),
+  ],
+};
 ---
 
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(breadcrumbSchema)}
+/>
 <nav class="app-layout mt-8 mb-1" aria-label="breadcrumb">
   <ul
     class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"

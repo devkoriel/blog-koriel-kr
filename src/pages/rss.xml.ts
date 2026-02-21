@@ -11,11 +11,16 @@ export async function GET() {
     title: SITE.title,
     description: SITE.desc,
     site: SITE.website,
+    xmlns: {
+      atom: "http://www.w3.org/2005/Atom",
+    },
     items: sortedPosts.map(({ data, id, filePath }) => ({
       link: getPath(id, filePath),
       title: data.title,
       description: data.description,
       pubDate: new Date(data.modDatetime ?? data.pubDatetime),
+      author: `${SITE.author}`,
+      categories: data.tags,
     })),
   });
 }

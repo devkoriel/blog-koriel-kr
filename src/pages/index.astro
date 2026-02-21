@@ -17,9 +17,42 @@ const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.title,
+  description: SITE.desc,
+  url: SITE.website,
+  inLanguage: ["en", "ko"],
+  author: {
+    "@type": "Person",
+    name: SITE.author,
+    url: SITE.profile,
+    jobTitle: "Senior Site Reliability Engineer",
+    sameAs: [
+      "https://github.com/devkoriel",
+      "https://www.linkedin.com/in/devkoriel/",
+      "https://x.com/devkoriel",
+    ],
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE.website}search?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
 ---
 
 <Layout>
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(websiteSchema)}
+  />
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>

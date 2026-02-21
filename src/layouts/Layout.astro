@@ -18,6 +18,8 @@ type Props = {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  lang?: "en" | "ko";
+  tags?: string[];
 };
 
 const {
@@ -30,31 +32,55 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  lang,
+  tags,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.url);
+const isArticle = !!pubDatetime;
+const pageLang = lang ?? SITE.lang ?? "en";
+const ogLocale = pageLang === "ko" ? "ko_KR" : "en_US";
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
+  "@type": isArticle ? "TechArticle" : "WebPage",
   headline: `${title}`,
+  description: `${description}`,
   image: `${socialImageURL}`,
-  datePublished: `${pubDatetime?.toISOString()}`,
-  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-  author: [
-    {
-      "@type": "Person",
-      name: `${author}`,
-      ...(profile && { url: profile }),
-    },
-  ],
+  url: canonicalURL.toString(),
+  inLanguage: pageLang === "ko" ? "ko-KR" : "en-US",
+  ...(isArticle && {
+    datePublished: pubDatetime?.toISOString(),
+    ...(modDatetime && { dateModified: modDatetime.toISOString() }),
+    ...(tags && { keywords: tags.join(", ") }),
+  }),
+  author: {
+    "@type": "Person",
+    name: `${author}`,
+    ...(profile && { url: profile }),
+    jobTitle: "Senior Site Reliability Engineer",
+    sameAs: [
+      "https://github.com/devkoriel",
+      "https://www.linkedin.com/in/devkoriel/",
+      "https://x.com/devkoriel",
+    ],
+  },
+  publisher: {
+    "@type": "Person",
+    name: SITE.author,
+    url: SITE.website,
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalURL.toString(),
+  },
 };
 ---
 
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
+  lang={pageLang}
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
@@ -71,7 +97,10 @@ const structuredData = {
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
+    <meta property="og:type" content={isArticle ? "article" : "website"} />
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
@@ -94,23 +123,27 @@ const structuredData = {
         />
       )
     }
+    {
+      tags &&
+        tags.map(tag => <meta property="article:tag" content={tag} />)
+    }
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@devkoriel" />
+    <meta name="twitter:creator" content="@devkoriel" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
 
-    <!-- Google JSON-LD Structured data -->
+    <!-- JSON-LD Structured Data -->
     <script
       type="application/ld+json"
       is:inline
       set:html={JSON.stringify(structuredData)}
     />
 
-    <!-- Enable RSS feed auto-discovery  -->
-    <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->
+    <!-- RSS feed auto-discovery -->
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -118,12 +151,10 @@ const structuredData = {
       href={new URL("rss.xml", Astro.site)}
     />
 
-    <meta name="theme-color" content="" />
+    <meta name="theme-color" content="#006cac" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#ff6b01" media="(prefers-color-scheme: dark)" />
 
     {
-      // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
-      // include google-site-verification tag in the heading
-      // Learn more: https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag
       PUBLIC_GOOGLE_SITE_VERIFICATION && (
         <meta
           name="google-site-verification"
