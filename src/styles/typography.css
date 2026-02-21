@@ -95,6 +95,11 @@
   /* Always use dark theme for code blocks regardless of site theme */
   .astro-code {
     @apply flex rounded-lg border border-[#30363d] bg-(--shiki-dark-bg) text-(--shiki-dark) outline-border [&_span]:text-(--shiki-dark);
+
+    /* Improve comment color contrast for WCAG AA (4.5:1 on #22272e) */
+    span[style*="#768390"] {
+      --shiki-dark: #8b949e;
+    }
   }
 
   /* Styles for Shiki transformers */

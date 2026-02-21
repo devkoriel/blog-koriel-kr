@@ -11,19 +11,25 @@ import { PUBLIC_WALINE_SERVER_URL } from "astro:env/client";
 }
 
 <script>
-  import { init } from "@waline/client";
-  import "@waline/client/style";
+  let walineInstance: { destroy: () => void } | null = null;
+  let loaded = false;
 
-  let walineInstance: ReturnType<typeof init> | null = null;
+  async function loadWaline() {
+    if (loaded) return;
 
-  function loadWaline() {
     const el = document.querySelector<HTMLElement>("#waline");
-    if (!el) return null;
+    if (!el) return;
 
     const serverURL = el.dataset.serverUrl;
-    if (!serverURL) return null;
+    if (!serverURL) return;
 
-    return init({
+    loaded = true;
+
+    // @ts-ignore - CSS module import
+    await import("@waline/client/style");
+    const { init } = await import("@waline/client");
+
+    walineInstance = init({
       el: "#waline",
       serverURL,
       path: window.location.pathname,
@@ -32,19 +38,36 @@ import { PUBLIC_WALINE_SERVER_URL } from "astro:env/client";
       meta: ["nick"],
       requiredMeta: ["nick"],
       pageSize: 10,
-      reaction: true,
+      reaction: false,
       search: false,
       imageUploader: false,
     });
   }
 
-  function setup() {
-    if (walineInstance?.destroy) {
-      walineInstance.destroy();
-    }
-    walineInstance = loadWaline();
+  function setupObserver() {
+    const el = document.querySelector("#waline");
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          loadWaline();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
   }
 
-  setup();
-  document.addEventListener("astro:after-swap", setup);
+  setupObserver();
+
+  document.addEventListener("astro:after-swap", () => {
+    if (walineInstance?.destroy) {
+      walineInstance.destroy();
+      walineInstance = null;
+    }
+    loaded = false;
+    setupObserver();
+  });
 </script>
