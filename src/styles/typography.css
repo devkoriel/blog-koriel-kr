@@ -94,7 +94,7 @@
   /* ===== Code Blocks & Syntax Highlighting ===== */
   /* Always use dark theme for code blocks regardless of site theme */
   .astro-code {
-    @apply flex border border-transparent bg-(--shiki-dark-bg) text-(--shiki-dark) outline-border [&_span]:text-(--shiki-dark);
+    @apply flex rounded-lg border border-[#30363d] bg-(--shiki-dark-bg) text-(--shiki-dark) outline-border [&_span]:text-(--shiki-dark);
   }
 
   /* Styles for Shiki transformers */
@@ -110,7 +110,7 @@
       @apply inline-block w-full bg-slate-400/20;
     }
     .highlighted-word {
-      @apply rounded-sm border border-border px-0.5 py-px;
+      @apply rounded-sm border border-[#30363d] px-0.5 py-px;
     }
   }
 }
