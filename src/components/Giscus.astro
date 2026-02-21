@@ -5,60 +5,54 @@
   <div class="giscus"></div>
 </section>
 
-<script>
-  function loadGiscus() {
-    const container = document.querySelector(".giscus");
+<script is:inline data-astro-rerun>
+  (function () {
+    var container = document.querySelector(".giscus");
     if (!container) return;
 
-    // Remove any existing content
+    // Already loaded (e.g. bfcache restore)
+    if (container.querySelector("iframe.giscus-frame")) return;
+
     container.innerHTML = "";
 
-    const theme =
+    var theme =
       document.documentElement.getAttribute("data-theme") === "dark"
         ? "dark"
         : "light";
 
-    const script = document.createElement("script");
-    script.src = "https://giscus.app/client.js";
-    script.setAttribute("data-repo", "devkoriel/blog-koriel-kr");
-    script.setAttribute("data-repo-id", "R_kgDORVH_1w");
-    script.setAttribute("data-category", "General");
-    script.setAttribute("data-category-id", "DIC_kwDORVH_184C247J");
-    script.setAttribute("data-mapping", "pathname");
-    script.setAttribute("data-strict", "0");
-    script.setAttribute("data-reactions-enabled", "1");
-    script.setAttribute("data-emit-metadata", "0");
-    script.setAttribute("data-input-position", "top");
-    script.setAttribute("data-theme", theme);
-    script.setAttribute("data-lang", "en");
-    script.setAttribute("data-loading", "lazy");
-    script.crossOrigin = "anonymous";
-    script.async = true;
-    container.appendChild(script);
+    var s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    s.setAttribute("data-repo", "devkoriel/blog-koriel-kr");
+    s.setAttribute("data-repo-id", "R_kgDORVH_1w");
+    s.setAttribute("data-category", "General");
+    s.setAttribute("data-category-id", "DIC_kwDORVH_184C247J");
+    s.setAttribute("data-mapping", "pathname");
+    s.setAttribute("data-strict", "0");
+    s.setAttribute("data-reactions-enabled", "1");
+    s.setAttribute("data-emit-metadata", "0");
+    s.setAttribute("data-input-position", "top");
+    s.setAttribute("data-theme", theme);
+    s.setAttribute("data-lang", "en");
+    s.crossOrigin = "anonymous";
+    s.async = true;
+    container.appendChild(s);
+  })();
+
+  // Theme sync observer — register once globally
+  if (!window._giscusObs) {
+    window._giscusObs = new MutationObserver(function () {
+      var theme = document.documentElement.getAttribute("data-theme");
+      var frame = document.querySelector("iframe.giscus-frame");
+      if (frame) {
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: theme === "dark" ? "dark" : "light" } } },
+          "https://giscus.app"
+        );
+      }
+    });
+    window._giscusObs.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
   }
-
-  // Load on initial page load
-  document.addEventListener("astro:page-load", loadGiscus);
-
-  // Update theme when toggled
-  const observer = new MutationObserver(() => {
-    const theme = document.documentElement.getAttribute("data-theme");
-    const giscusFrame = document.querySelector("iframe.giscus-frame");
-    if (giscusFrame) {
-      giscusFrame.contentWindow?.postMessage(
-        {
-          giscus: {
-            setConfig: {
-              theme: theme === "dark" ? "dark" : "light",
-            },
-          },
-        },
-        "https://giscus.app"
-      );
-    }
-  });
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["data-theme"],
-  });
 </script>
