@@ -34,6 +34,12 @@ export const SOCIALS: Social[] = [
     icon: IconLinkedin,
   },
   {
+    name: "Telegram",
+    href: "https://t.me/whoskoriel",
+    linkTitle: `Telegram Channel`,
+    icon: IconTelegram,
+  },
+  {
     name: "Mail",
     href: "mailto:dev.koriel@gmail.com",
     linkTitle: `Send an email to ${SITE.title}`,
