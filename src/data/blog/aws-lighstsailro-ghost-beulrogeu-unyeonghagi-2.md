@@ -277,7 +277,7 @@ $ sudo crontab -e
 
 https://\[URL\]/ghost 로 관리자 페이지에 접속할 수 있다. 아래 화면이 보이면 모두 정상적으로 설치, 설정된 것이다.
 
-![Screen-Shot-2018-06-15-at-2.24.46-AM](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/Screen-Shot-2018-06-15-at-2.24.46-AM.png)
+![Screen-Shot-2018-06-15-at-2.24.46-AM](/images/blog/Screen-Shot-2018-06-15-at-2.24.46-AM.png)
 
 **Create your account**를 눌러 계정 정보들을 설정하면 거의 끝.
 

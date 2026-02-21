@@ -16,7 +16,7 @@ lang: ko
 
 Ubuntu를 설치하고 처음 부팅을 하면 다음과 같은 오류가 팝업될 때가 있다.
 
-![Avahi-Network-Service-Discovery-Disabled](https://blog.koriel.kr/content/images/2017/10/Avahi-Network-Service-Discovery-Disabled.png)
+<!-- 이미지 유실: Avahi Network Service Discovery Disabled 알림 팝업 스크린샷 -->
 
 사용하는 데 별 지장은 없지만, 부팅할 때마다 이 팝업이 뜨면 꽤 성가시다. 에디터로 간단하게 두 파일만 수정하면 이 팝업 알림을 없앨 수 있다.
 

@@ -81,6 +81,6 @@ Fibonacci sequence:
 
 ## Full Evidence
 
-![](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2023/03/Screenshot-2023-03-10-at-1.48.05-AM.png)
+![](/images/blog/Screenshot-2023-03-10-at-1.48.05-AM.png)
 
-![](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2023/03/Screenshot-2023-03-10-at-1.48.20-AM.png)
+![](/images/blog/Screenshot-2023-03-10-at-1.48.20-AM.png)

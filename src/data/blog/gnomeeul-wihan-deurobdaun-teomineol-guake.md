@@ -104,9 +104,9 @@ $ sudo ln -s /usr/share/gconf/schemas/guake.schemas
 
 ### 3\. Guake를 시작 프로그램에 등록하기
 
-_**응용 프로그램 메뉴 - 시스템 도구**_ 에서 시작 프로그램을 찾아 실행하면 아래와 같은 창이 나타납니다. ![startup-program-configuration](https://blog.koriel.kr/content/images/2017/10/startup-program-configuration.png)
+_**응용 프로그램 메뉴 - 시스템 도구**_ 에서 시작 프로그램을 찾아 실행하면 아래와 같은 창이 나타납니다. <!-- 이미지 유실: 시작 프로그램 설정 창 스크린샷 -->
 
-오른쪽 _**추가(A)**_ 버튼을 눌러 편집창이 나타나면 아래와 같이 수정하고 저장합니다. ![startup-program-edit](https://blog.koriel.kr/content/images/2017/10/startup-program-edit.png)
+오른쪽 _**추가(A)**_ 버튼을 눌러 편집창이 나타나면 아래와 같이 수정하고 저장합니다. <!-- 이미지 유실: 시작 프로그램 편집 창 스크린샷 -->
 
 아래 명령어를 통해서도 Guake를 시작 프로그램에 등록할 수 있습니다.
 
@@ -126,7 +126,7 @@ $ guake -p
 
 ```
 
-![guake-preferences](https://blog.koriel.kr/content/images/2017/10/guake-preferences.png)
+<!-- 이미지 유실: Guake 속성 창 스크린샷 -->
 
   
 
@@ -134,4 +134,4 @@ $ guake -p
 
 _**Toggle Guake visibility**_ 에 해당하는 단축키를 누르면 아래와 같이 **Guake**가 실행됩니다.
 
-![guake-running](https://blog.koriel.kr/content/images/2017/10/guake-running.png)
+<!-- 이미지 유실: Guake 실행 화면 스크린샷 -->

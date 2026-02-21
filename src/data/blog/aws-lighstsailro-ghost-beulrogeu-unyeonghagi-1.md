@@ -17,11 +17,11 @@ AWS Lightsail은 클릭 몇번으로 자신만의 서버를 바로 운영할 수
 
 ### 1\. AWS Lightsail 인스턴스 생성
 
-![Screen-Shot-2018-06-14-at-6.20.10-PM](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/Screen-Shot-2018-06-14-at-6.20.10-PM.png)
+![Screen-Shot-2018-06-14-at-6.20.10-PM](/images/blog/Screen-Shot-2018-06-14-at-6.20.10-PM.png)
 
 AWS Lightsail에 들어가면 위와 같은 화면이 보이는데 처음 들어가면 아무것도 안보이고 인스턴스 생성 버튼만 있다. 나는 이미 이 글을 쓰는 인스턴스를 하나 생성했기 때문에 목록에 하나가 보인다. 쨋든 **인스턴스 생성**(**Create instance**)을 누르자.
 
-![Create-an-instance---Lightsail-3](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/Create-an-instance---Lightsail-3.png)
+![Create-an-instance---Lightsail-3](/images/blog/Create-an-instance---Lightsail-3.png)
 
 **Location: Seoul**  
 **Platform: Linux/Unix**  
@@ -34,11 +34,11 @@ AWS Lightsail에 들어가면 위와 같은 화면이 보이는데 처음 들어
 
 인스턴스 생성이 끝나면 목록에 생성한 인스턴스가 보이는데 그것을 클릭해서 들어가면 관리할 수 있는 페이지가 나타난다. 거기서 **Networking 탭**을 눌러서 이동하자.
 
-![networking](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/networking.png)
+![networking](/images/blog/networking.png)
 
 **IP addresses > Public IP** 부분에 보면 밑에 `Create static IP`라는 버튼이 보인다. 지금 보이는 IP는 바로 접근이 가능한 Public IP인데 인스턴스를 중지했다가 다시 시작하면 바뀐다. 따라서 static IP를 하나 생성해서 인스턴스에 붙여야한다. static IP는 인스턴스를 내렸다 올려도 바뀌지 않는다. EC2 쓸 때 많이 봤던 Elastic IP. `Create static IP` 버튼을 누르고 잇따라 나오는 페이지에서도 그냥 또 `Create`를 누르면 바로 static IP가 생성되고 생성한 인스턴스에 붙는다.
 
-![Screen-Shot-2018-06-13-at-3.47.58-PM](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/Screen-Shot-2018-06-13-at-3.47.58-PM.png)
+![Screen-Shot-2018-06-13-at-3.47.58-PM](/images/blog/Screen-Shot-2018-06-13-at-3.47.58-PM.png)
 
 인스턴스에 붙어있는 동안엔 공짜다. 야호.
 
@@ -46,7 +46,7 @@ AWS Lightsail에 들어가면 위와 같은 화면이 보이는데 처음 들어
 
 Nginx를 설치하고 SSL을 설정하려면 443 포트가 열려있어야 한다.
 
-![Screen-Shot-2018-06-14-at-6.28.08-PM](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/Screen-Shot-2018-06-14-at-6.28.08-PM.png)
+![Screen-Shot-2018-06-14-at-6.28.08-PM](/images/blog/Screen-Shot-2018-06-14-at-6.28.08-PM.png)
 
 **Firewall > Add another**을 누르면 새롭게 허용할 포트를 추가할 수 있다. 거기서 드롭 다운 메뉴를 눌러 **HTTPS**를 선택한 다음 **Save**를 누르면 바로 저장이 되고 해당 포트가 허용된다.
 
@@ -54,9 +54,9 @@ Nginx를 설치하고 SSL을 설정하려면 443 포트가 열려있어야 한�
 
 상단바의 **Account > Account**를 눌러서 계정 관리 페이지로 넘어가자.
 
-![Screen-Shot-2018-06-14-at-6.22.49-PM](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/Screen-Shot-2018-06-14-at-6.22.49-PM.png)
+![Screen-Shot-2018-06-14-at-6.22.49-PM](/images/blog/Screen-Shot-2018-06-14-at-6.22.49-PM.png)
 
-![Screen-Shot-2018-06-14-at-6.31.05-PM](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/Screen-Shot-2018-06-14-at-6.31.05-PM.png)
+![Screen-Shot-2018-06-14-at-6.31.05-PM](/images/blog/Screen-Shot-2018-06-14-at-6.31.05-PM.png)
 
 넘어가서 SSH keys을 누르면 SSH 접근에 필요한 private key를 다운로드 받을 수 있다. 인스턴스를 서울 리전에서 생성했으므로 서울에 해당하는 key pair를 다운로드 받자. 가능하면 `~/.ssh` 경로에 다운로드.
 

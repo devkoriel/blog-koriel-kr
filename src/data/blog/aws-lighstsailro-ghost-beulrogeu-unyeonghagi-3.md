@@ -96,7 +96,7 @@ Casper라는 기본 테마도 굉장히 잘 만들어진 테마이다. 많은 �
 
 오른쪽 위 **Clone or downlad > Download ZIP**를 눌러 다운로드 받거나 [https://github.com/devkoriel/ghostium/archive/master.zip](https://github.com/devkoriel/ghostium/archive/master.zip) 이 링크를 눌러 직접 다운로드 받을 수 있다. 다운로드 받은 .zip 압축 파일을 **관리자 페이지 > Design > Upload a theme**으로 업로드하면 바로 적용할 수 있다.
 
-![Screen-Shot-2018-06-15-at-3.47.16-AM](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/06/Screen-Shot-2018-06-15-at-3.47.16-AM.png)
+![Screen-Shot-2018-06-15-at-3.47.16-AM](/images/blog/Screen-Shot-2018-06-15-at-3.47.16-AM.png)
 
 소셜 계정과 메타 태그, 왼쪽 네비게이션 바를 커스터마이징하려면 아래 4개의 파일들을 본인의 정보에 맞게 수정해야 한다.
 

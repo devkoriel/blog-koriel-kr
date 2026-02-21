@@ -13,7 +13,7 @@ tags:
   - text-editor
   - line-editor
   - history
-ogImage: "https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/08/Ken_Thompson_-sitting-_and_Dennis_Ritchie_at_PDP-11_-2876612463--2.jpg"
+ogImage: "https://blog.koriel.kr/images/blog/Ken_Thompson_-sitting-_and_Dennis_Ritchie_at_PDP-11_-2876612463--2.jpg"
 description: "> 이 글은 Where Vim Came From [https://twobithistory.org/2018/08/05/where-vim-came-from.html]을 번역한 글입니다.   나는 최근에 Intel HEX로 알려진 파일 포맷을 우연히 발견했다. 내가 아는 한, Intel..."
 lang: ko
 ---
@@ -42,7 +42,7 @@ Vim은 어디에나 있다. 정말 많은 사람이 사용하기 때문에 HEX �
 
 이런 비슷한 점을 고려하면, 평균적인 Vim 사용자가 `ed`도 문제없이 사용할 거로 생각할 수 있다. 하지만 `ed`은 또 다른 주요 특징에서 Vim과 완전히 다르다. `ed`는 진정한 행 편집기이다. 텔레프린터 (teletype printer) 시대에 작성되어 널리 사용되었던 것이다. 켄 톰슨과 데니스 리치가 Unix 일을 하고 있었을 때, 그 모습은 이랬다.
 
-![Ken_Thompson_-sitting-and_Dennis_Ritchie_at_PDP-11-2876612463-](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/08/Ken_Thompson_-sitting-_and_Dennis_Ritchie_at_PDP-11_-2876612463-.jpg)
+![Ken_Thompson_-sitting-and_Dennis_Ritchie_at_PDP-11-2876612463-](/images/blog/Ken_Thompson_-sitting-_and_Dennis_Ritchie_at_PDP-11_-2876612463-.jpg)
 
 `ed`는 변경 사항이 있을 때마다 전체 파일을 전부 다시 재출력해야 하므로 열려있는 버퍼에서 행들을 오가며 편집하거나 커서를 옮길 수 없다. 화면이라는 게 종이일 뿐이고 모든 것이 잉크로 출력되던 때였기 때문에 1969년 `ed`엔 화면의 내용을 "지우는 (clear)" 메커니즘이 없었다. 필요하면, 목록 명령 (l)을 이용해 특정 범위의 행을 `ed`가 출력하게 할 수 있지만 대부분 보이지 않는 텍스트에 대해 작업하게 될 뿐이다. 그래서 `ed`를 사용하는 것은 빛이 약한 손전등으로 어두운 집 주위에서 길을 찾으려고 애쓰는 것과 비슷하다. 한 번에 보이는 것만 볼 수 있기 때문에, 모든 것이 다 어디에 있는지 기억해야만 한다.
 
@@ -87,7 +87,7 @@ Isn't it a terrible day?
 
 `ex`/`vi` (이후 `vi`)는 `ed`엔 없었던, Vim과 관련된 대부분의 규칙을 세웠다. 조이가 사용하던 비디오 단말기 (video terminal)는 Lear Siegler ADM-3A였고 방향키가 없는 키보드가 달려있었다. 대신 화살표들이 `h`와 `j`, `k`, `l` 키 위에 인쇄되어 있었다. 바로 그게 조이가 이 키들을 `vi`에서 커서 이동키로 사용했던 이유다. ADM-3A 키보드의 ESC 키는 오늘날 탭키 자리에 있었다. 이건 그렇게 누르기 힘든 키가 어떻게 일반적으로 어떤 모드를 빠져나가는 동작에 할당됐는지를 설명해준다. 명령어 앞에 붙는 `:` 문자도 `vi`로부터 왔고 `:`는 일반 모드 (regular mode, `ex`를 실행하면 나오는 모드)에서 프롬프트 키로 사용된다. 이건 한번 실행하면 사용자가 아무것도 할 수 없는 `ed`에 대한 오랜 불만 사항을 해결한 것이다. 시각 모드에서 저장하고 종료하려면 이제는 당연한 `:wq`를 입력하는 작업이 필요하다. "홱 잡아당기기 (Yanking)"과 "넣기 (Putting)" 기호, 그리고 옵션을 설정하기 위한 `set` 명령어는 모두 원래 `vi`의 일부였다. Vim에서 기본적인 텍스트 편집을 할 때 우리가 사용하는 이 기능들은 대부분 `vi`의 기능들이다.
 
-![LSI-ADM3A-full-keyboard](https://s3-ap-northeast-2.amazonaws.com/blog.koriel.kr-storage/2018/08/LSI-ADM3A-full-keyboard.jpg)
+![LSI-ADM3A-full-keyboard](/images/blog/LSI-ADM3A-full-keyboard.jpg)
 
 `vi`는 `ed` 이외에 BSD Unix에 포함된 유일한 텍스트 편집기였다. 그 당시, Emacs는 수백 달러를 호가했었고 (GNU Emacs 이전이다), 그래서 `vi`의 인기가 대단했다. 하지만 `vi`는 `ed`의 직계 후손이었고 그 때문에 AT&T의 소스 라이선스없이는 코드 수정이 불가능했다. 이 문제가 몇몇 사람들이 `vi`의 오픈 소스 버전을 만들게 된 동기가 됐다. 1987년엔 STEVIE (ST Editor for VI Enthusiasts)가 등장했고 1990년엔 Elvis, 1994년엔 `nvi`가 등장했다. 이 복제판 중 몇몇은 구문 강조 (syntax highlighting)와 화면 분할 같은 추가 기능들이 추가됐다. Elvis는 특히 Vim에 포함된 기능들을 많이 가지고 있었는데 그건 Elvis 사용자들이 넣어달라고 강력하게 요구했기 때문이다.[\[9\]](#fn9)
 

@@ -37,7 +37,7 @@ $ mkdir ~/.icons && xdg-open ~/.icons
 
 If `.icons` folder opens, put the icon image in it like below.
 
-![icons](https://blog.koriel.kr/content/images/2017/10/icons.png)
+<!-- 이미지 유실: .icons 디렉토리 스크린샷 -->
 
   
 
