@@ -24,7 +24,7 @@ In the context of bot protection, stick tables can be used to track the behavior
 
 To configure stick tables in HAProxy, you need to define a table in the frontend or backend section of your configuration file, and specify the key, type, size, and other attributes of the table. Here's an example of how to define a stick table that counts the number of requests per minute from each IP address:
 
-```haproxy
+```plaintext
 frontend http
   stick-table type ip size 1m expire 1m store http_req_rate(60s)
   http-request track-sc0 src

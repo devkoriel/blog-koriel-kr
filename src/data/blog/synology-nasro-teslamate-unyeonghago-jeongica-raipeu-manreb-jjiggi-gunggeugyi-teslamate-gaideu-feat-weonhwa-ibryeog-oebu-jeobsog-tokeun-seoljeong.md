@@ -166,7 +166,7 @@ $ docker exec -it teslamate_database_1 psql -U teslamate
 
 **(4) 다음 명령어를 입력하여 데이터베이스 스키마를 수정합니다.**
 
-```psql
+```sql
 ALTER TABLE public.geofences ADD CONSTRAINT name_unique UNIQUE (name);
 ALTER TABLE charging_processes ALTER COLUMN cost TYPE numeric(8,2);
 ALTER TABLE geofences ALTER COLUMN cost_per_unit TYPE numeric(7,4);

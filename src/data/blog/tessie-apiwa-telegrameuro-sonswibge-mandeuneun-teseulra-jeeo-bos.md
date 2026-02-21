@@ -128,7 +128,7 @@ $ python -m venv venv
 -   가상환경을 활성화합니다:
 -   **Windows**:
 
-```powerscript
+```powershell
 $ venv\Scripts\activate
 ```
 
@@ -642,7 +642,7 @@ if __name__ == '__main__':
 -   프로젝트 디렉토리에 `Procfile`이라는 이름의 파일을 만듭니다.
 -   아래 내용을 `Procfile`에 작성합니다:
 
-```procfile
+```plaintext
 worker: python bot.py
 
 ```

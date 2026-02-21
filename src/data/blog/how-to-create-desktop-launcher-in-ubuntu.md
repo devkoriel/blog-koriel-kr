@@ -197,7 +197,7 @@ StartupWMClass=qgroundcontrol
 
 The third step is to make `.desktop` entry executable. The following command will do it.
 
-```shel
+```shell
 $ sudo chmod +x /usr/share/applications/<application-name>.desktop
 
 ```
