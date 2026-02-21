@@ -1,7 +1,7 @@
 ---
 title: "나는 영어 공부를 어떻게 했을까?"
 author: Jinsoo Heo
-pubDatetime: 2026-02-21T14:30:00.000Z
+pubDatetime: 2026-02-21T11:25:00.000Z
 draft: false
 tags:
   - life

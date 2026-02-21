@@ -1,7 +1,7 @@
 ---
 title: "10년동안 개발자로 일한 이야기 #1"
 author: Jinsoo Heo
-pubDatetime: 2026-02-21T12:00:00.000Z
+pubDatetime: 2026-02-21T11:00:00.000Z
 draft: false
 tags:
   - life

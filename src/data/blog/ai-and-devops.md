@@ -1,7 +1,7 @@
 ---
 title: "DevOps 직무에 AI는 어떻게 작용할까?"
 author: Jinsoo Heo
-pubDatetime: 2026-02-21T15:00:00.000Z
+pubDatetime: 2026-02-21T11:30:00.000Z
 draft: false
 tags:
   - devops

@@ -1,7 +1,7 @@
 ---
 title: "달러로 월급 어떻게 받아요?"
 author: Jinsoo Heo
-pubDatetime: 2026-02-21T13:30:00.000Z
+pubDatetime: 2026-02-21T11:15:00.000Z
 draft: false
 tags:
   - life

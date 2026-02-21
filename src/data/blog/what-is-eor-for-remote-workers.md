@@ -1,7 +1,7 @@
 ---
 title: "해외에 리모트로 취업하면 꼭 거쳐갈 EOR! 뭘까요?"
 author: Jinsoo Heo
-pubDatetime: 2026-02-21T14:00:00.000Z
+pubDatetime: 2026-02-21T11:20:00.000Z
 draft: false
 tags:
   - life
