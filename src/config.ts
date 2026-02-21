@@ -14,7 +14,7 @@ export const SITE = {
   editPost: {
     enabled: true,
     text: "Edit on GitHub",
-    url: "https://github.com/devkoriel/blog.koriel.kr/edit/main/",
+    url: "https://github.com/devkoriel/blog-koriel-kr/edit/main/",
   },
   dynamicOgImage: true,
   dir: "ltr",
