@@ -21,9 +21,9 @@ html[data-theme="dark"] {
 }
 
 @theme inline {
-  --font-sans: "Geist Variable", "Pretendard", -apple-system,
-    BlinkMacSystemFont, system-ui, "Segoe UI", "Apple SD Gothic Neo",
-    "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-sans: "Geist Variable", -apple-system, BlinkMacSystemFont,
+    system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", sans-serif;
   --font-mono: "Geist Mono Variable", "JetBrains Mono", "Fira Code",
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
     "Liberation Mono", "Courier New", monospace;

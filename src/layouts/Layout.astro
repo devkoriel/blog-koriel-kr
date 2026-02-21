@@ -5,9 +5,8 @@ import { PUBLIC_CF_ANALYTICS_TOKEN } from "astro:env/client";
 import { SITE } from "@/config";
 import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
-import "@fontsource/pretendard/400.css";
-import "@fontsource/pretendard/700.css";
 import "@/styles/global.css";
+import geistFontUrl from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
 
 type Props = {
   title?: string;
@@ -87,6 +86,7 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="preload" href={geistFontUrl} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
@@ -166,7 +166,49 @@ const structuredData = {
 
     <ClientRouter />
 
-    <script is:inline src="/toggle-theme.js"></script>
+    <script is:inline>
+      const primaryColorScheme = "";
+      const currentTheme = localStorage.getItem("theme");
+      function getPreferTheme() {
+        if (currentTheme) return currentTheme;
+        if (primaryColorScheme) return primaryColorScheme;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      let themeValue = getPreferTheme();
+      function setPreference() {
+        localStorage.setItem("theme", themeValue);
+        reflectPreference();
+      }
+      function reflectPreference() {
+        document.firstElementChild.setAttribute("data-theme", themeValue);
+        document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+        const body = document.body;
+        if (body) {
+          const bgColor = window.getComputedStyle(body).backgroundColor;
+          document.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);
+        }
+      }
+      reflectPreference();
+      window.onload = () => {
+        function setThemeFeature() {
+          reflectPreference();
+          document.querySelector("#theme-btn")?.addEventListener("click", () => {
+            themeValue = themeValue === "light" ? "dark" : "light";
+            setPreference();
+          });
+        }
+        setThemeFeature();
+        document.addEventListener("astro:after-swap", setThemeFeature);
+      };
+      document.addEventListener("astro:before-swap", event => {
+        const bgColor = document.querySelector("meta[name='theme-color']")?.getAttribute("content");
+        event.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);
+      });
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {
+        themeValue = isDark ? "dark" : "light";
+        setPreference();
+      });
+    </script>
 
     {
       PUBLIC_CF_ANALYTICS_TOKEN && (
