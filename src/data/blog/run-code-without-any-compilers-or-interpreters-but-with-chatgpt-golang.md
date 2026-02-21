@@ -74,6 +74,6 @@ pointer: 0xVALUE
 
 ## Full Evidence
 
-![](/images/blog/Screenshot-2023-03-10-at-2.46.07-AM.png)
+![](/images/blog/Screenshot-2023-03-10-at-2.46.07-AM.webp)
 
-![](/images/blog/Screenshot-2023-03-10-at-2.46.32-AM.png)
+![](/images/blog/Screenshot-2023-03-10-at-2.46.32-AM.webp)

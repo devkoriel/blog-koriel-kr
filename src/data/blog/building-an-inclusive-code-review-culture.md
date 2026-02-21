@@ -10,7 +10,7 @@ tags:
   - corporate-culture
   - culture
   - engineering-culture
-ogImage: "https://blog.koriel.kr/images/blog/code-review-chat-1.jpg"
+ogImage: "https://blog.koriel.kr/images/blog/code-review-chat-1.webp"
 description: "> 이 글은 Building an Inclusive Code Review Culture [https://blog.plaid.com/building-an-inclusive-code-review-culture/]를 번역한 글입니다.   모든 개발자는 코드 리뷰에 익숙합니다. 그리고 우..."
 lang: ko
 ---
@@ -25,7 +25,7 @@ lang: ko
 
 우리는 개발팀이라는 본질로 돌아가 현재 Plaid에 어떤 제일 나은 방법들이 있는지 써 내려가는 것부터 시작했습니다. 신입부터 시니어 개발자들까지 많은 개발자를 면담했습니다. 그러고 나서 모든 사람의 생각을 정리해서 몇 가지 권장 사항을 만들었습니다. 우리는 모든 직원이 기여하고 목소리를 낼 수 있도록 각 팀에 이 권장 사항들을 보냈습니다. 모두의 동의를 얻고 그 지지를 확실히 하기 위해 개발 과정에 우리는 다음과 같은 가이드라인을 제시했습니다.
 
-# Plaid의 코드 리뷰 가이드라인
+## Plaid의 코드 리뷰 가이드라인
 
 ## 코드 리뷰의 목적
 
@@ -39,7 +39,7 @@ PR의 범위를 구체적으로 지정하는 것은 효과적인 코드 리뷰 �
 
 마지막으로, 검토자가 당신이 작성한 변경 사항을 적용할 수 있도록 돕기 위해 쏟는 시간을 존중하세요. 그들은 당신에게 피드백을 주기 위해 본인의 주요 프로젝트 업무에서 시간을 떼어온 것입니다. 만약에 그들이 코멘트를 남기면 그것이 무엇이든 응답해주는 것이 중요합니다. 그 응답이 그들 말대로 수정했다고 하는 간단한 것이라고 해도요. 고맙게도, 우리는 그걸 위한 이모지⚡를 가지고 있습니다. 이건 변경 사항을 추적하기 위한 아주 좋은 도구입니다.
 
-![code-review-github@2x@2x](/images/blog/code-review-github@2x@2x.jpg)
+![code-review-github@2x@2x](/images/blog/code-review-github@2x@2x.webp)
 
 > jlamb: 다른 케이스들은 철자순으로 되어있는 것 같네요 - 이 케이스는 밑으로 내리는 게 어때요?  
 > jsiegel: ⚡
@@ -66,7 +66,7 @@ Plaid에서, 우리는 "ship it (실어 날라)" 문화를 가지고 있습니�
 
 새로운 직원들을 빠르게 적응시키고 우리의 코드 리뷰 권장 사항을 체득시키기 위해서, 우리는 우리가 만든 가이드라인을 훑어보고 GitHub에 들어가 최근 PR들을 살펴보는 코드 리뷰 온보딩[\[1\]](#fn1) 세션을 만들었습니다. 새로운 직원들을 확실하게 Plaid의 코드 리뷰 문화에 노출함으로써, 그들을 처음부터 그 문화에 기여할 수 있게 만든다고 믿고 있습니다.
 
-![code-review-chat](/images/blog/code-review-chat.jpg)
+![code-review-chat](/images/blog/code-review-chat.webp)
 
 어떤 새로운 직원이든, 새로운 조직의 모든 문화 규범을 시도해보고 빠르게 따라오라는 건 겁을 먹을 만한 일입니다. 문화 규범을 익히는 것이 코드 리뷰처럼 비판적인 피드백을 받는 일과 같다면 특히 겁먹을 수 있습니다. 그렇기 때문에, 코드 리뷰 문화에 새로운 직원을 받아들일 땐 가능한 환영하는 것이 중요합니다.
 

@@ -20,6 +20,7 @@ type Props = {
   scrollSmooth?: boolean;
   lang?: "en" | "ko";
   tags?: string[];
+  lcpImage?: string;
 };
 
 const {
@@ -34,6 +35,7 @@ const {
   scrollSmooth = false,
   lang,
   tags,
+  lcpImage,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.url);
@@ -87,6 +89,7 @@ const structuredData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="preload" href={geistFontUrl} as="font" type="font/woff2" crossorigin />
+    {lcpImage && <link rel="preload" href={lcpImage} as="image" fetchpriority="high" />}
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32" />
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />

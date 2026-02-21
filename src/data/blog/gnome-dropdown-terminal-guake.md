@@ -12,7 +12,7 @@ description: Introduction  -----------------------------------------------------
 lang: ko
 ---
 
-# Introduction
+## Introduction
 
 ---
 
@@ -62,7 +62,7 @@ lang: ko
 
   
 
-# How to Install Guake
+## How to Install Guake
 
 ---
 

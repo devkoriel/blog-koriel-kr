@@ -12,7 +12,7 @@ description: Introduction  -----------------------------------------------------
 lang: ko
 ---
 
-# Introduction
+## Introduction
 
 ---
 
@@ -38,7 +38,7 @@ lang: ko
 
   
 
-# Source
+## Source
 
 ---
 
@@ -56,7 +56,7 @@ $ cd socket.udp-tcp.test/
 
   
 
-# UDP
+## UDP
 
 ---
 
@@ -100,7 +100,7 @@ $ ./c 127.0.0.1 9999 # localhost ip, 포트 넘버
 
   
 
-# TCP
+## TCP
 
 ---
 
@@ -144,7 +144,7 @@ $ ./c 127.0.0.1 9999 # localhost ip, 포트 넘버
 
   
 
-# 함수 설명
+## 함수 설명
 
 ---
 

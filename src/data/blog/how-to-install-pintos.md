@@ -11,7 +11,7 @@ description: "Introduction  ----------------------------------------------------
 lang: ko
 ---
 
-# Introduction
+## Introduction
 
 ---
 
@@ -35,13 +35,13 @@ Pintos는 이론적으론, 보통의 IBM-호환 PC 위에서 모두 작동합니
 
   
 
-# How to Install Pintos
+## How to Install Pintos
 
 ---
 
 ### 1. Pintos 환경 설정
 
-##### 1.1 컴파일러 설치하기 (e.g., gcc, g++)
+#### 1.1 컴파일러 설치하기 (e.g., gcc, g++)
 
 `gcc`와 `g++`은 리눅스에서 사용하는 컴파일러입니다. `gcc`은 C 코드를, `g++`은 C++ 코드를 컴파일 할 수 있습니다.
 
@@ -57,7 +57,7 @@ $ sudo mv /<user-name>/bin/gcc-4.4 /<user-name>/bin/gcc
 
 > gcc-4.4가 설치되지 않는다면?
 > 
-> gcc-4.4가 Ubuntu Source Repository에 등록되어 있지 않아 설치가 되지 않는다면, [여기](/posts/gcc-gpp-version-management)를 참조하세요.
+> gcc-4.4가 Ubuntu Source Repository에 등록되어 있지 않아 설치가 되지 않는다면, [GCC/G++ 버전 관리 가이드](/posts/gcc-gpp-version-management)를 참조하세요.
 
 > 코드를 사용자화 하세요
 > 
@@ -65,7 +65,7 @@ $ sudo mv /<user-name>/bin/gcc-4.4 /<user-name>/bin/gcc
 
   
 
-##### 1.2 Bochs 설치하기
+#### 1.2 Bochs 설치하기
 
 리눅스 환경에서 Pintos를 구동하려면 시뮬레이터를 설치해야 합니다. Pintos 프로젝트 홈페이지에선 Bochs와 Qemu를 추천하고 있습니다. 이 포스트에선 Bochs를 기준으로 설명하겠습니다.
 
@@ -86,7 +86,7 @@ $ sudo make install
 
   
 
-##### 1.3 Pintos 설치하고 환경 설정하기
+#### 1.3 Pintos 설치하고 환경 설정하기
 
 Pintos를 설치하기 위해선 아래의 명령어를 터미널에서 입력하면 됩니다.
 
@@ -131,7 +131,7 @@ $ make
 
 ### 3. Pintos 코드 검증
 
-##### 3.1 모든 테스트 스레드 한번에 검증하기
+#### 3.1 모든 테스트 스레드 한번에 검증하기
 
 Pintos엔 27개의 테스트 스레드가 있고 사용자가 이것들을 모두 돌려볼 수 있습니다.
 
@@ -183,7 +183,7 @@ make: *** [check] 오류 1
 
   
 
-##### 3.2 특정 테스트 스레드 직접 검증하기
+#### 3.2 특정 테스트 스레드 직접 검증하기
 
 특정 테스트 스레드를 검증하기 위해선 아래 명령어를 터미널에서 입력합니다.
 

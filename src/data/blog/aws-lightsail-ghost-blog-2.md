@@ -9,7 +9,7 @@ description: 1. Ubuntu 패키지 업데이트 $ sudo apt update && sudo apt upgr
 lang: ko
 ---
 
-### 1. Ubuntu 패키지 업데이트
+## 1. Ubuntu 패키지 업데이트
 
 ```bash
 $ sudo apt update && sudo apt upgrade -y
@@ -18,7 +18,7 @@ $ sudo apt update && sudo apt upgrade -y
 
 중간에 묻는 것이 있다면 그냥 다 엔터
 
-### 2. en_US.UTF-8 issue 해결
+## 2. en_US.UTF-8 issue 해결
 
 AWS EC2나 Lightsail에서 Ubuntu 인스턴스를 생성하고 접속해서 작업하다 보면 다음과 같은 경고를 마주친다.
 
@@ -44,7 +44,7 @@ LC_ALL=en_US.utf-8
 
 ```
 
-### 3. Swap memory 설정
+## 3. Swap memory 설정
 
 Ghost는 권장 사양으로 1G의 램을 요구한다. 우리가 생성한 인스턴스는 512MB이므로 나머지를 메꿀 수 있는 swap을 설정해야 한다. 넉넉하게 2G 정도 잡아주자.
 
@@ -66,9 +66,9 @@ Swap:          2047          73        1974
 
 ```
 
-### 4. Ghost 설치
+## 4. Ghost 설치
 
-#### 사용자 추가
+### 사용자 추가
 
 Ghost를 설치하고 관리하기 위한 UNIX 사용자를 따로 추가하는 것이 좋다. **사용자 이름을 절대 ghost로 설정하면 안된다.** Ghost 설치 과정에서 ghost 사용자를 생성해서 사용하기 때문에 충돌한다.
 
@@ -79,7 +79,7 @@ $ su - <user> # user로 로그인
 
 ```
 
-#### Nginx 설치
+### Nginx 설치
 
 ```bash
 $ sudo apt install nginx
@@ -87,7 +87,7 @@ $ sudo ufw allow 'Nginx Full'
 
 ```
 
-#### MySQL 설치
+### MySQL 설치
 
 ```bash
 $ sudo apt install mysql-server
@@ -96,7 +96,7 @@ $ sudo apt install mysql-server
 
 설치 도중 root 계정의 비밀번호를 설정하는 창이 뜨는데 이때 **반드시 비밀번호를 설정**해야 한다. 빈칸으로 놔두고 넘어가면 나중에 Ghost를 설치할 때 문제가 된다.
 
-#### Node.js 설치
+### Node.js 설치
 
 ```bash
 $ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash
@@ -106,14 +106,14 @@ $ sudo apt install -y nodejs
 
 Ghost가 지원하는 Node.js의 버전은 [https://docs.ghost.org/docs/supported-node-versions](https://docs.ghost.org/docs/supported-node-versions) 에 나와있다. v6(Boron)이나 v8(Carbon) LTS 버전을 설치할 것을 권장한다. 이 글에서는 Ghost가 추천하는 v6 버전으로 설치한다.
 
-#### Ghost-CLI 설치
+### Ghost-CLI 설치
 
 ```bash
 $ sudo npm i -g ghost-cli
 
 ```
 
-#### Ghost 설치
+### Ghost 설치
 
 ```bash
 $ sudo mkdir -p /var/www/ghost
@@ -189,7 +189,7 @@ To set up an alternative email method read our docs at https://docs.ghost.org/do
 
 ```
 
-#### SSL 인증서 발급
+### SSL 인증서 발급
 
 certbot을 이용하면 엔터 몇번으로 SSL 발급, Nginx 설정, 리다이렉트 설정까지 알아서 다 해준다. 먼저 certbot을 설치하자.
 
@@ -257,7 +257,7 @@ Redirecting all traffic on port 80 to ssl in /etc/nginx/sites-enabled/blog.korie
 
 여기까지 하면 SSL 인증서까지 설정이 모두 끝난다.
 
-#### SSL 인증서 자동 갱신 설정
+### SSL 인증서 자동 갱신 설정
 
 매달 1일에 인증서를 자동 갱신하도록 crontab을 설정하자.
 
@@ -273,11 +273,11 @@ $ sudo crontab -e
 
 ```
 
-### 5. 관리자 페이지 접속
+## 5. 관리자 페이지 접속
 
 https://\[URL\]/ghost 로 관리자 페이지에 접속할 수 있다. 아래 화면이 보이면 모두 정상적으로 설치, 설정된 것이다.
 
-![Screen-Shot-2018-06-15-at-2.24.46-AM](/images/blog/Screen-Shot-2018-06-15-at-2.24.46-AM.png)
+![Screen-Shot-2018-06-15-at-2.24.46-AM](/images/blog/Screen-Shot-2018-06-15-at-2.24.46-AM.webp)
 
 **Create your account**를 눌러 계정 정보들을 설정하면 거의 끝.
 

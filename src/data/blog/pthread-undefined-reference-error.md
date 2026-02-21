@@ -13,7 +13,7 @@ description: Problem  ----------------------------------------------------------
 lang: ko
 ---
 
-# Problem
+## Problem
 
 ---
 
@@ -29,7 +29,7 @@ collect2: error: ld returned 1 exit status
 
   
 
-# Solution
+## Solution
 
 ---
 

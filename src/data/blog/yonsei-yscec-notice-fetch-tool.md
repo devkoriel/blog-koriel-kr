@@ -11,7 +11,7 @@ description: Introduction  -----------------------------------------------------
 lang: ko
 ---
 
-# Introduction
+## Introduction
 
 ---
 
@@ -29,7 +29,7 @@ lang: ko
 
   
 
-# Install
+## Install
 
 ---
 
@@ -56,7 +56,7 @@ $ source ~/.bashrc
 
   
 
-# Use
+## Use
 
 ---
 
@@ -71,6 +71,6 @@ $ yscec
 
   
 
-# Video
+## Video
 
 ---

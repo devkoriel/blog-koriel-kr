@@ -17,11 +17,11 @@ description: 안녕하세요, 테슬라 오너 여러분!  테슬라를 더욱 �
 lang: ko
 ---
 
-![](https://github.com/teslamate-org/teslamate/raw/main/website/static/screenshots/web_interface.png)
+![TeslaMate web interface](/images/blog/teslamate-web-interface.webp)
 
-![](https://github.com/teslamate-org/teslamate/raw/main/website/static/screenshots/drive.png)
+![TeslaMate drive stats](/images/blog/teslamate-drive.webp)
 
-![](https://github.com/teslamate-org/teslamate/raw/main/website/static/screenshots/battery-health.png)
+![TeslaMate battery health](/images/blog/teslamate-battery-health.webp)
 
 안녕하세요, 테슬라 오너 여러분!
 

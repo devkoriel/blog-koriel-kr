@@ -11,7 +11,7 @@ description: Dependencies  -----------------------------------------------------
 lang: ko
 ---
 
-# Dependencies
+## Dependencies
 
 ---
 
@@ -20,7 +20,7 @@ lang: ko
 
   
 
-# Problems
+## Problems
 
 ---
 
@@ -30,7 +30,7 @@ lang: ko
 
   
 
-# How to Solve It
+## How to Solve It
 
 ---
 

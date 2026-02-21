@@ -13,7 +13,7 @@ tags:
   - text-editor
   - line-editor
   - history
-ogImage: "https://blog.koriel.kr/images/blog/Ken_Thompson_-sitting-_and_Dennis_Ritchie_at_PDP-11_-2876612463--2.jpg"
+ogImage: "https://blog.koriel.kr/images/blog/Ken_Thompson_-sitting-_and_Dennis_Ritchie_at_PDP-11_-2876612463--2.webp"
 description: "> 이 글은 Where Vim Came From [https://twobithistory.org/2018/08/05/where-vim-came-from.html]을 번역한 글입니다.   나는 최근에 Intel HEX로 알려진 파일 포맷을 우연히 발견했다. 내가 아는 한, Intel..."
 lang: ko
 ---
@@ -30,7 +30,7 @@ Vim은 어디에나 있다. 정말 많은 사람이 사용하기 때문에 HEX �
 
 진부하긴 하지만 그 해답은 고대 컴퓨팅의 도가니, 벨 연구소(Bell Labs)에 있다. 어떻게 보면 Vim은 Unix 시대의 서막부터 지속해서 개발되고 개선된 "wq 텍스트 편집기"라고 하는 소프트웨어의 최신판일 뿐이다.
 
-# Ken Thompson, 행 편집기를 만들다
+## Ken Thompson, 행 편집기를 만들다
 
 1996년에, 벨 연구소는 켄 톰슨(Ken Thompson)을 고용했다. 톰슨이 버클리의 캘리포니아 대학교(University of California)에서 막 전자공학과 컴퓨터과학 석사 학위를 딴 참이었다. 거기서 그는 QED라는 텍스트 편집기를 사용했는데 그건 1965년과 1966년 사이에 버클리 시분할 시스템 (Berkeley Timesharing System)[\[1\]](#fn1)을 위해 작성된 것이었다. 톰슨이 벨 연구소에서 처음 한 일 중 하나가 MIT 호환 시분할 시스템을 위해 QED를 재작성하는 것이었다. 그는 나중에 Multics 프로젝트의 일환으로 QED의 또 다른 버전을 만들었다. 그 과정에서 그는 사용자가 파일의 행을 검색하고 정규식을 사용하여 문자열을 대체할 수 있도록 프로그램을 확장했다.[\[2\]](#fn2)
 
@@ -42,7 +42,7 @@ Vim은 어디에나 있다. 정말 많은 사람이 사용하기 때문에 HEX �
 
 이런 비슷한 점을 고려하면, 평균적인 Vim 사용자가 `ed`도 문제없이 사용할 거로 생각할 수 있다. 하지만 `ed`은 또 다른 주요 특징에서 Vim과 완전히 다르다. `ed`는 진정한 행 편집기이다. 텔레프린터 (teletype printer) 시대에 작성되어 널리 사용되었던 것이다. 켄 톰슨과 데니스 리치가 Unix 일을 하고 있었을 때, 그 모습은 이랬다.
 
-![Ken_Thompson_-sitting-and_Dennis_Ritchie_at_PDP-11-2876612463-](/images/blog/Ken_Thompson_-sitting-_and_Dennis_Ritchie_at_PDP-11_-2876612463-.jpg)
+![Ken_Thompson_-sitting-and_Dennis_Ritchie_at_PDP-11-2876612463-](/images/blog/Ken_Thompson_-sitting-_and_Dennis_Ritchie_at_PDP-11_-2876612463-.webp)
 
 `ed`는 변경 사항이 있을 때마다 전체 파일을 전부 다시 재출력해야 하므로 열려있는 버퍼에서 행들을 오가며 편집하거나 커서를 옮길 수 없다. 화면이라는 게 종이일 뿐이고 모든 것이 잉크로 출력되던 때였기 때문에 1969년 `ed`엔 화면의 내용을 "지우는 (clear)" 메커니즘이 없었다. 필요하면, 목록 명령 (l)을 이용해 특정 범위의 행을 `ed`가 출력하게 할 수 있지만 대부분 보이지 않는 텍스트에 대해 작업하게 될 뿐이다. 그래서 `ed`를 사용하는 것은 빛이 약한 손전등으로 어두운 집 주위에서 길을 찾으려고 애쓰는 것과 비슷하다. 한 번에 보이는 것만 볼 수 있기 때문에, 모든 것이 다 어디에 있는지 기억해야만 한다.
 
@@ -77,7 +77,7 @@ Isn't it a terrible day?
 
 보이는 대로, `ed`가 특별히 말이 많은 프로그램은 아니다.
 
-# Bill Joy, 텍스트 편집기를 만들다
+## Bill Joy, 텍스트 편집기를 만들다
 
 `ed`도 톰슨과 리치를 위해선 충분히 잘 작동한다. 하지만 다른 사람들은 사용하기가 어려웠고 Unix의 초보자에 대한 불친절함의 대명사라는 평판을 얻었다.[\[6\]](#fn6) 1975년에, 조지 클루리스 (George Coulouris)라는 사람이 런던의 퀸 메리 대학에 설치된 Unix 시스템에서 `ed`의 개량판을 개발했다. 클루리스는 퀸 메리에서 사용 가능한 비디오 디스플레이를 활용하기 위해 편집기를 만들었다. `ed`랑 다르게, 클루리스의 프로그램은 키를 눌러 줄을 옮겨가며 한 번에 한 줄씩 편집할 수 있었다. (Vim을 한 번에 한 줄씩 사용한다고 생각하면 된다). 클루리스는 그의 프로그램에 `em`이라는 이름을 붙였다. 또는 "인간을 위한 편집기 (editor for mortals)"라고도. 톰슨이 퀸 메리를 방문한 이후에 영감을 얻은 것으로 보였다. 그는 클루리스가 만든 프로그램을 보고 편집 도중 파일의 상태를 볼 필요는 없다면서 무시했었다.[\[7\]](#fn7)
 
@@ -87,11 +87,11 @@ Isn't it a terrible day?
 
 `ex`/`vi` (이후 `vi`)는 `ed`엔 없었던, Vim과 관련된 대부분의 규칙을 세웠다. 조이가 사용하던 비디오 단말기 (video terminal)는 Lear Siegler ADM-3A였고 방향키가 없는 키보드가 달려있었다. 대신 화살표들이 `h`와 `j`, `k`, `l` 키 위에 인쇄되어 있었다. 바로 그게 조이가 이 키들을 `vi`에서 커서 이동키로 사용했던 이유다. ADM-3A 키보드의 ESC 키는 오늘날 탭키 자리에 있었다. 이건 그렇게 누르기 힘든 키가 어떻게 일반적으로 어떤 모드를 빠져나가는 동작에 할당됐는지를 설명해준다. 명령어 앞에 붙는 `:` 문자도 `vi`로부터 왔고 `:`는 일반 모드 (regular mode, `ex`를 실행하면 나오는 모드)에서 프롬프트 키로 사용된다. 이건 한번 실행하면 사용자가 아무것도 할 수 없는 `ed`에 대한 오랜 불만 사항을 해결한 것이다. 시각 모드에서 저장하고 종료하려면 이제는 당연한 `:wq`를 입력하는 작업이 필요하다. "홱 잡아당기기 (Yanking)"과 "넣기 (Putting)" 기호, 그리고 옵션을 설정하기 위한 `set` 명령어는 모두 원래 `vi`의 일부였다. Vim에서 기본적인 텍스트 편집을 할 때 우리가 사용하는 이 기능들은 대부분 `vi`의 기능들이다.
 
-![LSI-ADM3A-full-keyboard](/images/blog/LSI-ADM3A-full-keyboard.jpg)
+![LSI-ADM3A-full-keyboard](/images/blog/LSI-ADM3A-full-keyboard.webp)
 
 `vi`는 `ed` 이외에 BSD Unix에 포함된 유일한 텍스트 편집기였다. 그 당시, Emacs는 수백 달러를 호가했었고 (GNU Emacs 이전이다), 그래서 `vi`의 인기가 대단했다. 하지만 `vi`는 `ed`의 직계 후손이었고 그 때문에 AT&T의 소스 라이선스없이는 코드 수정이 불가능했다. 이 문제가 몇몇 사람들이 `vi`의 오픈 소스 버전을 만들게 된 동기가 됐다. 1987년엔 STEVIE (ST Editor for VI Enthusiasts)가 등장했고 1990년엔 Elvis, 1994년엔 `nvi`가 등장했다. 이 복제판 중 몇몇은 구문 강조 (syntax highlighting)와 화면 분할 같은 추가 기능들이 추가됐다. Elvis는 특히 Vim에 포함된 기능들을 많이 가지고 있었는데 그건 Elvis 사용자들이 넣어달라고 강력하게 요구했기 때문이다.[\[9\]](#fn9)
 
-# Bram Moolenaar, Vim을 만들다
+## Bram Moolenaar, Vim을 만들다
 
 지금은 "Vi Improved"를 뜻하는 "Vim"이 원래는 "Vi Imitation"을 나타내는 말이었다. 다른 많은 `vi` 복제판들처럼, Vim도 사용할 수 없는 플랫폼으로 복제하려는 시도로 시작됐다. 벤로 (Venlo)의 복사기 회사에서 일하던 네덜란드 소프트웨어 엔지니어, 브람 무레나르 (Bram Moolenaar)는 그의 신상 Amiga 2000에서 사용할 `vi` 비슷한 것을 원했다. 무레나르는 그의 대학에서 Unix 시스템의 `vi`를 사용하는 데 익숙했었고 "자유자재로 다루는" 경지에 올랐었다.[\[10\]](#fn10) 그래서 1988년에 기존의 STEVIE `vi` 복제판을 시작으로, 무레나르는 Vim 개발에 돌입했다.
 

@@ -5,6 +5,8 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import { remarkReadingTime } from "./src/utils/remark-reading-time";
 import rehypeExternalLinks from "rehype-external-links";
+import rehypeImgSize from "rehype-img-size";
+import { rehypeLazyImages } from "./src/utils/rehype-lazy-images";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -32,6 +34,8 @@ export default defineConfig({
         rehypeExternalLinks,
         { target: "_blank", rel: ["nofollow", "noopener", "noreferrer"] },
       ],
+      [rehypeImgSize, { dir: "public" }],
+      rehypeLazyImages,
     ],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes

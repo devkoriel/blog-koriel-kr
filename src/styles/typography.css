@@ -98,7 +98,7 @@
 
     /* Improve comment color contrast for WCAG AA (4.5:1 on #22272e) */
     span[style*="#768390"] {
-      --shiki-dark: #8b949e;
+      --shiki-dark: #8b949e !important;
     }
   }
 

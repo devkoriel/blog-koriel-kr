@@ -9,7 +9,7 @@ description: 1. ghost-storage-adapter-s3 설치 Ghost 블로그는 기본적으�
 lang: ko
 ---
 
-### 1. ghost-storage-adapter-s3 설치
+## 1. ghost-storage-adapter-s3 설치
 
 Ghost 블로그는 기본적으로 이미지나 첨부 파일을 업로드 하면 인스턴스의 볼륨에 그것들을 저장한다. 우리가 생성한 Lightsail 인스턴스의 볼륨은 20G로 아주 작은 건 아니지만 첨부 파일의 용량에 따라서는 금방 차버릴 수도 있다. 따라서 네이티브 볼륨을 이용하는 것 보다는 AWS s3에 이미지와 첨부 파일을 업로드해서 관리하는 것이 훨씬 효율적이다. 이후에 블로그를 다른 서버로 옮기더라도 이 설정 방법을 이용해 같은 s3 버킷에 붙이기만 하면 별도의 백업과 복원 과정없이 이미지와 첨부 파일들을 옮길 수 있다.
 
@@ -88,7 +88,7 @@ $ ghost restart
 
 ```
 
-### 2. 테마 설정
+## 2. 테마 설정
 
 Casper라는 기본 테마도 굉장히 잘 만들어진 테마이다. 많은 개발자들이 기본 테마를 그냥 사용하고 있지만 그것이 싫다면 [https://marketplace.ghost.org](https://marketplace.ghost.org) 에서 마음에 드는 것을 골라 사용할 수도 있다. 유료도 있으니 주의.
 
@@ -96,7 +96,7 @@ Casper라는 기본 테마도 굉장히 잘 만들어진 테마이다. 많은 �
 
 오른쪽 위 **Clone or downlad > Download ZIP**를 눌러 다운로드 받거나 [https://github.com/devkoriel/ghostium/archive/master.zip](https://github.com/devkoriel/ghostium/archive/master.zip) 이 링크를 눌러 직접 다운로드 받을 수 있다. 다운로드 받은 .zip 압축 파일을 **관리자 페이지 > Design > Upload a theme**으로 업로드하면 바로 적용할 수 있다.
 
-![Screen-Shot-2018-06-15-at-3.47.16-AM](/images/blog/Screen-Shot-2018-06-15-at-3.47.16-AM.png)
+![Screen-Shot-2018-06-15-at-3.47.16-AM](/images/blog/Screen-Shot-2018-06-15-at-3.47.16-AM.webp)
 
 소셜 계정과 메타 태그, 왼쪽 네비게이션 바를 커스터마이징하려면 아래 4개의 파일들을 본인의 정보에 맞게 수정해야 한다.
 

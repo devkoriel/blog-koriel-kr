@@ -11,7 +11,7 @@ description: Dependencies  -----------------------------------------------------
 lang: en
 ---
 
-# Dependencies
+## Dependencies
 
 ---
 
@@ -20,7 +20,7 @@ lang: en
 
   
 
-# How to Create Desktop Launcher
+## How to Create Desktop Launcher
 
 ---
 

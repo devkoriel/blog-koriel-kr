@@ -10,7 +10,7 @@ description: Introduction  -----------------------------------------------------
 lang: ko
 ---
 
-# Introduction
+## Introduction
 
 ---
 
@@ -22,7 +22,7 @@ Ubuntu를 설치하고 처음 부팅을 하면 다음과 같은 오류가 팝업
 
   
 
-# Step. 1
+## Step. 1
 
 ---
 
@@ -50,7 +50,7 @@ AVAHI_DAEMON_DETECT_LOCAL=1
 
   
 
-# Step. 2
+## Step. 2
 
 ---
 

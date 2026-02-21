@@ -39,6 +39,12 @@ const {
 const { Content, remarkPluginFrontmatter } = await render(post);
 const readingTime = remarkPluginFrontmatter.readingTime as string;
 
+// Extract first image from markdown for LCP preloading, only if it appears
+// near the top of the content (within first 100 chars after frontmatter)
+const bodyStart = post.body?.slice(0, 100) ?? "";
+const firstImageMatch = bodyStart.match(/!\[.*?\]\((\/[^\s)]+)\)/);
+const lcpImage = firstImageMatch?.[1];
+
 let ogImageUrl: string | undefined;
 
 // Determine OG image source
@@ -69,6 +75,7 @@ const layoutProps = {
   scrollSmooth: true,
   lang: post.data.lang,
   tags,
+  lcpImage,
 };
 
 /* ========== Prev/Next Posts ========== */
@@ -147,7 +154,7 @@ const nextPost =
             <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
             <div>
               <span>Previous Post</span>
-              <div class="text-sm text-accent/85">{prevPost.title}</div>
+              <div class="text-sm text-accent">{prevPost.title}</div>
             </div>
           </a>
         )
@@ -160,7 +167,7 @@ const nextPost =
           >
             <div>
               <span>Next Post</span>
-              <div class="text-sm text-accent/85">{nextPost.title}</div>
+              <div class="text-sm text-accent">{nextPost.title}</div>
             </div>
             <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
           </a>
