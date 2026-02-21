@@ -5,12 +5,12 @@
   <div class="giscus"></div>
 </section>
 
-<script is:inline data-astro-rerun>
-  (function loadGiscus() {
+<script>
+  function loadGiscus() {
     const container = document.querySelector(".giscus");
     if (!container) return;
 
-    // Remove any existing iframe from previous navigation
+    // Remove any existing content
     container.innerHTML = "";
 
     const theme =
@@ -35,14 +35,17 @@
     script.crossOrigin = "anonymous";
     script.async = true;
     container.appendChild(script);
-  })();
+  }
+
+  // Load on initial page load
+  document.addEventListener("astro:page-load", loadGiscus);
 
   // Update theme when toggled
   const observer = new MutationObserver(() => {
     const theme = document.documentElement.getAttribute("data-theme");
     const giscusFrame = document.querySelector("iframe.giscus-frame");
     if (giscusFrame) {
-      giscusFrame.contentWindow.postMessage(
+      giscusFrame.contentWindow?.postMessage(
         {
           giscus: {
             setConfig: {
