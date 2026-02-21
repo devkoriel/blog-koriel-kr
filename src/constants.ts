@@ -5,6 +5,7 @@ import IconBrandX from "@/assets/icons/IconBrandX.svg";
 import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
 import IconFacebook from "@/assets/icons/IconFacebook.svg";
 import IconTelegram from "@/assets/icons/IconTelegram.svg";
+import IconWhatsapp from "@/assets/icons/IconWhatsapp.svg";
 import { SITE } from "@/config";
 
 interface Social {
@@ -65,6 +66,18 @@ export const SHARE_LINKS: Social[] = [
     href: "https://www.facebook.com/sharer.php?u=",
     linkTitle: `Share this post on Facebook`,
     icon: IconFacebook,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/sharing/share-offsite/?url=",
+    linkTitle: `Share this post on LinkedIn`,
+    icon: IconLinkedin,
+  },
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/?text=",
+    linkTitle: `Share this post via WhatsApp`,
+    icon: IconWhatsapp,
   },
   {
     name: "Mail",

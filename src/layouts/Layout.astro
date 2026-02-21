@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
+import { PUBLIC_CF_ANALYTICS_TOKEN } from "astro:env/client";
 import { SITE } from "@/config";
 import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
@@ -166,6 +167,17 @@ const structuredData = {
     <ClientRouter />
 
     <script is:inline src="/toggle-theme.js"></script>
+
+    {
+      PUBLIC_CF_ANALYTICS_TOKEN && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token":"${PUBLIC_CF_ANALYTICS_TOKEN}"}`}
+          is:inline
+        />
+      )
+    }
   </head>
   <body>
     <slot />

@@ -3,6 +3,8 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
+import { remarkReadingTime } from "./src/utils/remark-reading-time";
+import rehypeExternalLinks from "rehype-external-links";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -20,7 +22,17 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
+    remarkPlugins: [
+      remarkReadingTime,
+      remarkToc,
+      [remarkCollapse, { test: "Table of contents" }],
+    ],
+    rehypePlugins: [
+      [
+        rehypeExternalLinks,
+        { target: "_blank", rel: ["nofollow", "noopener", "noreferrer"] },
+      ],
+    ],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "github-light", dark: "github-dark-dimmed" },
@@ -51,6 +63,11 @@ export default defineConfig({
   env: {
     schema: {
       PUBLIC_GOOGLE_SITE_VERIFICATION: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_CF_ANALYTICS_TOKEN: envField.string({
         access: "public",
         context: "client",
         optional: true,
