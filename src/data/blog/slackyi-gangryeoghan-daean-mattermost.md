@@ -64,13 +64,13 @@ $ sudo apt remove docker docker-engine docker.io containerd runc
 
 패키지 인덱스를 업데이트하고 docker-ce를 본격적으로 설치할 차례다.
 
-1\. 패키지 인덱스 업데이트 및 패키지 업그레이드
+1. 패키지 인덱스 업데이트 및 패키지 업그레이드
 
 ```
 $ sudo apt update && sudo apt upgrade -y
 ```
 
-2\. Docker CE와 containerd의 최신 버전을 설치한다.
+2. Docker CE와 containerd의 최신 버전을 설치한다.
 
 ```
 $ sudo apt install docker-ce docker-ce-cli containerd.io
@@ -227,18 +227,18 @@ $ curl -O https://gist.githubusercontent.com/devkoriel/9bf04f399b572e6ced4d78488
 
 `mattermost-docker-compose.yml`에서 사용하는 파라미터는 총 3개이다.
 
-<POSTGRES\_비밀번호>: 생성되는 Postgres DB의 비밀번호이다. 최소 16자 이상으로 설정할 것을 권장한다. [https://passwordsgenerator.net를](https://passwordsgenerator.xn--net-hw8m) 이용하면 간단하게 비밀번호를 자동 생성할 수 있다.  
-<MATTERMOST\_디렉토리>: Docker 컨테이너가 사용할 Host의 볼륨 위치이다.  
-<HOST\_포트>: Host에 노출할 포트이다.
+<POSTGRES_비밀번호>: 생성되는 Postgres DB의 비밀번호이다. 최소 16자 이상으로 설정할 것을 권장한다. [https://passwordsgenerator.net를](https://passwordsgenerator.xn--net-hw8m) 이용하면 간단하게 비밀번호를 자동 생성할 수 있다.  
+<MATTERMOST_디렉토리>: Docker 컨테이너가 사용할 Host의 볼륨 위치이다.  
+<HOST_포트>: Host에 노출할 포트이다.
 
-아래 명령어로 <MATTERMOST\_디렉토리>를 생성하고 소유자를 설정한다.
+아래 명령어로 <MATTERMOST_디렉토리>를 생성하고 소유자를 설정한다.
 
 ```
 $ sudo mkdir -p /home/apps/mattermost/{config,data,logs,plugins,cert}
 $ sudo chown -R 2000:2000 /home/apps/mattermost
 ```
 
-`mattermost-docker-compose.yml`에서 <MATTERMOST\_디렉토리>를 모두 `/home/apps/mattermost`로 바꾼다.
+`mattermost-docker-compose.yml`에서 <MATTERMOST_디렉토리>를 모두 `/home/apps/mattermost`로 바꾼다.
 
 아래 명령어로 `mattermost` 서비스와 컨테이너를 생성한다.
 
@@ -319,7 +319,7 @@ $ curl -O https://gist.githubusercontent.com/devkoriel/8b789a65972733af7a4e7e799
 `mattermost-nginx-conf`에서 사용하는 파라미터는 총 2개이다.
 
 example.com: 사용할 도메인  
-<HOST\_포트>: mattermost-docker-compose.yml에서 사용한 <HOST\_포트>
+<HOST_포트>: mattermost-docker-compose.yml에서 사용한 <HOST_포트>
 
 `mattermost-nginx-conf`를 `nginx`의 설치 경로 밑 `sites-available`로 옮긴다.
 
@@ -351,11 +351,11 @@ chat.example.com으로 접속하면 초기 화면을 볼 수 있다.
 
 ## Mattermost 봇 만들어보기
 
-Slack과 같이 Mattermost도 봇을 만들어 통합할 수 있다. 깃헙의 attzonko/mmpy\_bot을 이용해 챗봇을 만들어보겠다.
+Slack과 같이 Mattermost도 봇을 만들어 통합할 수 있다. 깃헙의 attzonko/mmpy_bot을 이용해 챗봇을 만들어보겠다.
 
-가장 최신 버전의 mmpy\_bot을 이용해 개발하려면 Python3와 pip이 요구된다. 먼저 Python3와 pip을 가장 최신으로 업데이트하거나 설치하자.
+가장 최신 버전의 mmpy_bot을 이용해 개발하려면 Python3와 pip이 요구된다. 먼저 Python3와 pip을 가장 최신으로 업데이트하거나 설치하자.
 
-이후 아래의 pip 명령어로 mmpy\_bot 모듈을 설치할 수 있다.
+이후 아래의 pip 명령어로 mmpy_bot 모듈을 설치할 수 있다.
 
 ```
 $ pip install mmpy_bot
@@ -375,7 +375,7 @@ BOT_TEAM = '<your-team>'
 
 위 설정은 환경 변수로 설정해도 된다. Mattermost 봇을 도커로 이미징한 후 배포한다면, 환경 변수나 `docker secret`을 사용하는 것이 보안상 더 안전하다.
 
-아래 명령어로 mmpy\_bot cli을 호출해 간단하게 봇을 실행할 수 있다. 봇이 실행되면 사용자의 입력을 받을 수 있는 상태가 된다.
+아래 명령어로 mmpy_bot cli을 호출해 간단하게 봇을 실행할 수 있다. 봇이 실행되면 사용자의 입력을 받을 수 있는 상태가 된다.
 
 `MATTERMOST_BOT_SETTINGS_MODULE=mattermost_bot_settings mmpy_bot`
 
@@ -390,7 +390,7 @@ if __name__ == "__main__":
 
 ```
 
-`MATTERMOST_BOT_SETTINGS_MODULE=mattermost_bot_settings python3 run.py` 명령어로 봇을 실행해볼 수 있다. 이제 mmpy\_bot이 지원하는 여러가지 플러그인을 이용해 사용자의 입력에 응답하는 간단한 봇을 만들어보자.
+`MATTERMOST_BOT_SETTINGS_MODULE=mattermost_bot_settings python3 run.py` 명령어로 봇을 실행해볼 수 있다. 이제 mmpy_bot이 지원하는 여러가지 플러그인을 이용해 사용자의 입력에 응답하는 간단한 봇을 만들어보자.
 
 `respond_to` 플러그인과 `listen_to` 플러그인을 사용해보겠다.
 

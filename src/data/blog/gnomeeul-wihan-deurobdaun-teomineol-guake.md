@@ -66,7 +66,7 @@ lang: ko
 
 ---
 
-### 1\. Guake 설치하기
+### 1. Guake 설치하기
 
 **Guake**를 설치하기 위해선 아래 명령어를 터미널에서 입력하면 됩니다.
 
@@ -78,7 +78,7 @@ $ sudo apt-get install guake
 
   
 
-### 2\. Fix 에러 - “Guake can not init!”
+### 2. Fix 에러 - “Guake can not init!”
 
 응용 프로그램 메뉴에서 Guake를 실행한 후 아래와 같은 오류 메시지가 나타날 수도 있습니다. 정상적으로 실행이 된다면 이 단계는 건너뛰어도 됩니다.
 
@@ -102,7 +102,7 @@ $ sudo ln -s /usr/share/gconf/schemas/guake.schemas
 
   
 
-### 3\. Guake를 시작 프로그램에 등록하기
+### 3. Guake를 시작 프로그램에 등록하기
 
 _**응용 프로그램 메뉴 - 시스템 도구**_ 에서 시작 프로그램을 찾아 실행하면 아래와 같은 창이 나타납니다. <!-- 이미지 유실: 시작 프로그램 설정 창 스크린샷 -->
 
@@ -117,7 +117,7 @@ $ cp /usr/share/applications/guake.desktop /etc/xdg/autostart/
 
   
 
-### 4\. Guake 단축키 수정하기
+### 4. Guake 단축키 수정하기
 
 터미널에서 아래 명령어를 입력하면 Guake 속성창이 나타납니다. _**키보드 단축키**_ 탭에서 단축키들을 편집할 수 있습니다.
 
@@ -130,7 +130,7 @@ $ guake -p
 
   
 
-### 5\. Guake 실행 화면
+### 5. Guake 실행 화면
 
 _**Toggle Guake visibility**_ 에 해당하는 단축키를 누르면 아래와 같이 **Guake**가 실행됩니다.
 

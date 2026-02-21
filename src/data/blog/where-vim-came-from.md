@@ -119,7 +119,7 @@ _이 글을 재밌게 읽었다면 2주에 한 번씩 더 찾아주세요! Twitt
     
 5.  Dennis Ritchie, “An Incomplete History of the QED Editor,” accessed August 5, 2018, [https://www.bell-labs.com/usr/dmr/www/qed.html](https://www.bell-labs.com/usr/dmr/www/qed.html). [↩︎](#fnref5)
     
-6.  Donald Norman, “The Truth about Unix: The User Interface Is Horrid,” Datamation, accessed August 5, 2018, [http://www.ceri.memphis.edu/people/smalley/ESCI7205\_misc\_files/The\_truth\_about\_Unix\_cleaned.pdf](http://www.ceri.memphis.edu/people/smalley/ESCI7205_misc_files/The_truth_about_Unix_cleaned.pdf). [↩︎](#fnref6)
+6.  Donald Norman, “The Truth about Unix: The User Interface Is Horrid,” Datamation, accessed August 5, 2018, [http://www.ceri.memphis.edu/people/smalley/ESCI7205_misc_files/The_truth_about_Unix_cleaned.pdf](http://www.ceri.memphis.edu/people/smalley/ESCI7205_misc_files/The_truth_about_Unix_cleaned.pdf). [↩︎](#fnref6)
     
 7.  George Coulouris, “George Coulouris: A Bit of History,” George Coulouris’ Homepage, September 1998, accessed August 5, 2018, [http://www.eecs.qmul.ac.uk/~gc/history/index.html](http://www.eecs.qmul.ac.uk/~gc/history/index.html). [↩︎](#fnref7)
     
@@ -127,7 +127,7 @@ _이 글을 재밌게 읽었다면 2주에 한 번씩 더 찾아주세요! Twitt
     
 9.  Sven Guckes, “VIM Wishlist,” Vmunix, May 15, 1995, accessed August 5, 2018, [https://web.archive.org/web/20080520075925/http://www.vmunix.com/vim/wish.html](https://web.archive.org/web/20080520075925/http://www.vmunix.com/vim/wish.html). [↩︎](#fnref9)
     
-10.  Bram Moolenaar, “Vim 25” (lecture, Zurich, November 2, 2016), December 13, 2016, accessed August 5, 2018, [https://www.youtube.com/watch?v=ayc\_qpB-93o&t=4m58s](https://www.youtube.com/watch?v=ayc_qpB-93o&t=4m58s) [↩︎](#fnref10)
+10.  Bram Moolenaar, “Vim 25” (lecture, Zurich, November 2, 2016), December 13, 2016, accessed August 5, 2018, [https://www.youtube.com/watch?v=ayc_qpB-93o&t=4m58s](https://www.youtube.com/watch?v=ayc_qpB-93o&t=4m58s) [↩︎](#fnref10)
      
 11.  ibid. (?t=6m15s) [↩︎](#fnref11)
      

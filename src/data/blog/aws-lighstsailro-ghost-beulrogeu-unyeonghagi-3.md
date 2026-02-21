@@ -9,7 +9,7 @@ description: 1. ghost-storage-adapter-s3 설치 Ghost 블로그는 기본적으�
 lang: ko
 ---
 
-### 1\. ghost-storage-adapter-s3 설치
+### 1. ghost-storage-adapter-s3 설치
 
 Ghost 블로그는 기본적으로 이미지나 첨부 파일을 업로드 하면 인스턴스의 볼륨에 그것들을 저장한다. 우리가 생성한 Lightsail 인스턴스의 볼륨은 20G로 아주 작은 건 아니지만 첨부 파일의 용량에 따라서는 금방 차버릴 수도 있다. 따라서 네이티브 볼륨을 이용하는 것 보다는 AWS s3에 이미지와 첨부 파일을 업로드해서 관리하는 것이 훨씬 효율적이다. 이후에 블로그를 다른 서버로 옮기더라도 이 설정 방법을 이용해 같은 s3 버킷에 붙이기만 하면 별도의 백업과 복원 과정없이 이미지와 첨부 파일들을 옮길 수 있다.
 
@@ -76,9 +76,9 @@ $ sudo vim /var/www/ghost/config.production.json
 
 ```
 
-s3 버킷 생성은 [https://docs.aws.amazon.com/ko\_kr/AmazonS3/latest/user-guide/create-bucket.html](https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/user-guide/create-bucket.html) 을 참조.
+s3 버킷 생성은 [https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/user-guide/create-bucket.html](https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/user-guide/create-bucket.html) 을 참조.
 
-Access key id와 secret access key 발급은 [https://docs.aws.amazon.com/ko\_kr/IAM/latest/UserGuide/id\_credentials\_access-keys.html](https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_credentials_access-keys.html) 을 참조.
+Access key id와 secret access key 발급은 [https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_credentials_access-keys.html](https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_credentials_access-keys.html) 을 참조.
 
 Ghost를 재시작하여 설정을 적용하자.
 
@@ -88,7 +88,7 @@ $ ghost restart
 
 ```
 
-### 2\. 테마 설정
+### 2. 테마 설정
 
 Casper라는 기본 테마도 굉장히 잘 만들어진 테마이다. 많은 개발자들이 기본 테마를 그냥 사용하고 있지만 그것이 싫다면 [https://marketplace.ghost.org](https://marketplace.ghost.org) 에서 마음에 드는 것을 골라 사용할 수도 있다. 유료도 있으니 주의.
 

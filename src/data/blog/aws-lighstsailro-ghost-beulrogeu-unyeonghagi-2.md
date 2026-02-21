@@ -9,7 +9,7 @@ description: 1. Ubuntu 패키지 업데이트 $ sudo apt update && sudo apt upgr
 lang: ko
 ---
 
-### 1\. Ubuntu 패키지 업데이트
+### 1. Ubuntu 패키지 업데이트
 
 ```bash
 $ sudo apt update && sudo apt upgrade -y
@@ -18,7 +18,7 @@ $ sudo apt update && sudo apt upgrade -y
 
 중간에 묻는 것이 있다면 그냥 다 엔터
 
-### 2\. en\_US.UTF-8 issue 해결
+### 2. en_US.UTF-8 issue 해결
 
 AWS EC2나 Lightsail에서 Ubuntu 인스턴스를 생성하고 접속해서 작업하다 보면 다음과 같은 경고를 마주친다.
 
@@ -44,7 +44,7 @@ LC_ALL=en_US.utf-8
 
 ```
 
-### 3\. Swap memory 설정
+### 3. Swap memory 설정
 
 Ghost는 권장 사양으로 1G의 램을 요구한다. 우리가 생성한 인스턴스는 512MB이므로 나머지를 메꿀 수 있는 swap을 설정해야 한다. 넉넉하게 2G 정도 잡아주자.
 
@@ -66,7 +66,7 @@ Swap:          2047          73        1974
 
 ```
 
-### 4\. Ghost 설치
+### 4. Ghost 설치
 
 #### 사용자 추가
 
@@ -273,7 +273,7 @@ $ sudo crontab -e
 
 ```
 
-### 5\. 관리자 페이지 접속
+### 5. 관리자 페이지 접속
 
 https://\[URL\]/ghost 로 관리자 페이지에 접속할 수 있다. 아래 화면이 보이면 모두 정상적으로 설치, 설정된 것이다.
 

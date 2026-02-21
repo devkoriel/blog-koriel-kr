@@ -24,7 +24,7 @@ lang: en
 
 ---
 
-### 1\. Create icon image
+### 1. Create icon image
 
 Let’s make `.icons` directory at `/home/<user-name>` with following commands.
 
@@ -41,7 +41,7 @@ If `.icons` folder opens, put the icon image in it like below.
 
   
 
-### 2\. Create .desktop file
+### 2. Create .desktop file
 
 The second step is to create `.desktop` file for your applications then edit it. It has to follow some predefined formats. But you don’t have to worry about it at all. I’ll show you the precedures step by step and even the examples.
 
@@ -81,93 +81,34 @@ Terminal=false
 
 -   Line by line explanation
 
-Line
-
-Description
-
-\[Desktop Entry\]
-
-The first line of every desktop file and the section header to identify the block of key value pairs associated with the desktop. Necessary for the desktop to recognize the file correctly.
-
-Type=Application
-
-Tells the desktop that this desktop file pertains to an application. Other valid values for this key are Link and Directory.
-
-Encoding=UTF-8
-
-Describes the encoding of the entries in this desktop file.
-
-Name=Sample Application Name
-
-Names of your application for the main menu and any launchers.
-
-Comment=A sample application
-
-Describes the application. Used as a tooltip.
-
-Categories= Application Category
-
-Categories the application belongs to.
-
-Exec=application
-
-The command that starts this application from a shell. It can have arguments.
-
-Icon=application.png
-
-The icon name associated with this application.
-
-Terminal=false
-
-Describes whether application should run in a terminal.
+| Line | Description |
+|------|-------------|
+| `[Desktop Entry]` | The first line of every desktop file and the section header to identify the block of key value pairs associated with the desktop. Necessary for the desktop to recognize the file correctly. |
+| `Type=Application` | Tells the desktop that this desktop file pertains to an application. Other valid values for this key are Link and Directory. |
+| `Encoding=UTF-8` | Describes the encoding of the entries in this desktop file. |
+| `Name=Sample Application Name` | Names of your application for the main menu and any launchers. |
+| `Comment=A sample application` | Describes the application. Used as a tooltip. |
+| `Categories=Application Category` | Categories the application belongs to. |
+| `Exec=application` | The command that starts this application from a shell. It can have arguments. |
+| `Icon=application.png` | The icon name associated with this application. |
+| `Terminal=false` | Describes whether application should run in a terminal. |
 
   
 
 -   Exec variables
 
-Add...
-
-Accepts...
-
-%f
-
-a single filename.
-
-%F
-
-multiple filenames.
-
-%u
-
-a single URL.
-
-%U
-
-multiple URLs.
-
-%d
-
-a single directory. Used in conjunction with %f to locate a file.
-
-%D
-
-multiple directories. Used in conjunction with %F to locate files.
-
-%n
-
-a single filename without a path.
-
-%N
-
-multiple filenames without paths.
-
-%k
-
-a URI or local filename of the location of the desktop file.
-
-%v
-
-the name of the Device entry.
+| Variable | Accepts |
+|----------|---------|
+| `%f` | a single filename. |
+| `%F` | multiple filenames. |
+| `%u` | a single URL. |
+| `%U` | multiple URLs. |
+| `%d` | a single directory. Used in conjunction with %f to locate a file. |
+| `%D` | multiple directories. Used in conjunction with %F to locate files. |
+| `%n` | a single filename without a path. |
+| `%N` | multiple filenames without paths. |
+| `%k` | a URI or local filename of the location of the desktop file. |
+| `%v` | the name of the Device entry. |
 
   
 
@@ -193,7 +134,7 @@ StartupWMClass=qgroundcontrol
 
   
 
-### 3\. Make .desktop executable
+### 3. Make .desktop executable
 
 The third step is to make `.desktop` entry executable. The following command will do it.
 
