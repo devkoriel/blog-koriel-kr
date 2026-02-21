@@ -1,0 +1,184 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        preset: [desktop, mobile]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install tools
+        run: npm install -g @lhci/cli serve
+
+      - name: Start server
+        run: |
+          serve dist -l 4173 --no-clipboard &
+          for i in $(seq 1 15); do
+            curl -s http://localhost:4173 > /dev/null 2>&1 && break
+            sleep 1
+          done
+
+      - name: Generate URLs
+        id: urls
+        run: |
+          PORT=4173
+          BASE="http://localhost:${PORT}"
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            cat > urls.txt <<URLS
+          ${BASE}/
+          ${BASE}/about
+          ${BASE}/search
+          ${BASE}/tags
+          ${BASE}/posts
+          ${BASE}/posts/synology-nas-teslamate-guide
+          ${BASE}/posts/where-vim-came-from
+          ${BASE}/posts/modern-cpp-lambda-features
+          URLS
+            # Trim leading whitespace from heredoc
+            sed -i 's/^[[:space:]]*//' urls.txt
+          else
+            # Full scan for main pushes
+            find dist -name "index.html" -type f | while read -r file; do
+              path="${file#dist}"
+              path="${path%/index.html}"
+              if [ -z "$path" ]; then
+                echo "${BASE}/"
+              else
+                echo "${BASE}${path}"
+              fi
+            done | sort > urls.txt
+          fi
+
+          echo "count=$(wc -l < urls.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
+          echo "Testing $(wc -l < urls.txt | tr -d ' ') URLs (${{ matrix.preset }})"
+          cat urls.txt
+
+      - name: Run Lighthouse (${{ matrix.preset }})
+        run: |
+          URL_FLAGS=$(sed 's/^/--url=/' urls.txt | tr '\n' ' ')
+
+          PRESET_FLAG=""
+          if [[ "${{ matrix.preset }}" == "desktop" ]]; then
+            PRESET_FLAG="--collect.settings.preset=desktop"
+          fi
+
+          eval lhci collect $URL_FLAGS $PRESET_FLAG --config=lighthouserc.cjs
+
+      - name: Upload to filesystem
+        run: lhci upload --config=lighthouserc.cjs
+
+      - name: Generate report
+        env:
+          LIGHTHOUSE_PRESET: ${{ matrix.preset }}
+        run: node scripts/lighthouse-report.mjs
+
+      - name: Assert thresholds
+        run: lhci assert --config=lighthouserc.cjs
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-${{ matrix.preset }}
+          path: |
+            .lighthouseci/
+            lighthouse-summary.md
+          retention-days: 14
+
+  comment:
+    needs: lighthouse
+    if: github.event_name == 'pull_request' && always()
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: lighthouse-desktop
+          path: lighthouse-desktop/
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: lighthouse-mobile
+          path: lighthouse-mobile/
+
+      - name: Build comment
+        run: |
+          {
+            echo "## Lighthouse CI Results"
+            echo ""
+            if [ -f lighthouse-desktop/lighthouse-summary.md ]; then
+              cat lighthouse-desktop/lighthouse-summary.md
+            else
+              echo "Desktop results unavailable."
+            fi
+            echo ""
+            if [ -f lighthouse-mobile/lighthouse-summary.md ]; then
+              cat lighthouse-mobile/lighthouse-summary.md
+            else
+              echo "Mobile results unavailable."
+            fi
+            echo ""
+            echo "---"
+            echo "*Median of 3 runs | Thresholds: Perf >= 95, A11y/BP/SEO = 100*"
+          } > pr-comment.md
+
+      - name: Post PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          path: pr-comment.md
+          header: lighthouse-ci
