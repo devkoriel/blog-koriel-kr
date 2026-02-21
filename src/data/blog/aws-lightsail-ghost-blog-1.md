@@ -108,5 +108,5 @@ $ ssh -i [pem file] ubuntu@blog.example.kr
 레코드를 생성한 직후엔 아직 전파가 되지 않아 접속이 안될 수도 있으니 좀 기다리자.
 
 AWS Lightsail로 Ghost 블로그 운영하기 - 1  
-[AWS Lightsail로 Ghost 블로그 운영하기 - 2](https://blog.koriel.kr/aws-lighstsailro-ghost-beulrogeu-unyeonghagi-2/)  
-[AWS Lightsail로 Ghost 블로그 운영하기 - 3](https://blog.koriel.kr/aws-lighstsailro-ghost-beulrogeu-unyeonghagi-3/)
+[AWS Lightsail로 Ghost 블로그 운영하기 - 2](/posts/aws-lightsail-ghost-blog-2)
+[AWS Lightsail로 Ghost 블로그 운영하기 - 3](/posts/aws-lightsail-ghost-blog-3)

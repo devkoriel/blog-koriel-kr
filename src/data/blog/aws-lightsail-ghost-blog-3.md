@@ -107,6 +107,6 @@ Casper라는 기본 테마도 굉장히 잘 만들어진 테마이다. 많은 �
 
 수정한 후 다시 최상위 폴더를 압축하여 업로드하면 적용할 수 있다.
 
-[AWS Lightsail로 Ghost 블로그 운영하기 - 1](https://blog.koriel.kr/aws-lighstsailro-ghost-beulrogeu-unyeonghagi-1/)  
-[AWS Lightsail로 Ghost 블로그 운영하기 - 2](https://blog.koriel.kr/aws-lighstsailro-ghost-beulrogeu-unyeonghagi-2/)  
+[AWS Lightsail로 Ghost 블로그 운영하기 - 1](/posts/aws-lightsail-ghost-blog-1)
+[AWS Lightsail로 Ghost 블로그 운영하기 - 2](/posts/aws-lightsail-ghost-blog-2)  
 AWS Lightsail로 Ghost 블로그 운영하기 - 3

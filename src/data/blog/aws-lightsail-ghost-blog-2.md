@@ -281,6 +281,6 @@ https://\[URL\]/ghost 로 관리자 페이지에 접속할 수 있다. 아래 �
 
 **Create your account**를 눌러 계정 정보들을 설정하면 거의 끝.
 
-[AWS Lightsail로 Ghost 블로그 운영하기 - 1](https://blog.koriel.kr/aws-lighstsailro-ghost-beulrogeu-unyeonghagi-1/)  
-AWS Lightsail로 Ghost 블로그 운영하기 - 2  
-[AWS Lightsail로 Ghost 블로그 운영하기 - 3](https://blog.koriel.kr/aws-lighstsailro-ghost-beulrogeu-unyeonghagi-3/)
+[AWS Lightsail로 Ghost 블로그 운영하기 - 1](/posts/aws-lightsail-ghost-blog-1)
+AWS Lightsail로 Ghost 블로그 운영하기 - 2
+[AWS Lightsail로 Ghost 블로그 운영하기 - 3](/posts/aws-lightsail-ghost-blog-3)

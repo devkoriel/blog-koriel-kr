@@ -57,7 +57,7 @@ $ sudo mv /<user-name>/bin/gcc-4.4 /<user-name>/bin/gcc
 
 > gcc-4.4가 설치되지 않는다면?
 > 
-> gcc-4.4가 Ubuntu Source Repository에 등록되어 있지 않아 설치가 되지 않는다면, [여기](https://blog.koriel.kr/gcc-g-dareun-beojeon-cugahago-paekiji-gwanrihagi/)를 참조하세요.
+> gcc-4.4가 Ubuntu Source Repository에 등록되어 있지 않아 설치가 되지 않는다면, [여기](/posts/gcc-gpp-version-management)를 참조하세요.
 
 > 코드를 사용자화 하세요
 > 
