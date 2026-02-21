@@ -73,3 +73,15 @@ html[data-theme="dark"] {
 :target {
   scroll-margin-block: 1rem;
 }
+
+/* Waline comment system theme integration */
+:root {
+  --waline-bgcolor: var(--background);
+  --waline-bgcolor-light: var(--muted);
+  --waline-bgcolor-hover: var(--muted);
+  --waline-color: var(--foreground);
+  --waline-border-color: var(--border);
+  --waline-active-color: var(--accent);
+  --waline-theme-color: var(--accent);
+  --waline-font-size: 0.9375rem;
+}

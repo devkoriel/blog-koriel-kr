@@ -1,0 +1,50 @@
+---
+import { PUBLIC_WALINE_SERVER_URL } from "astro:env/client";
+---
+
+{
+  PUBLIC_WALINE_SERVER_URL && (
+    <section class="waline-wrapper mt-8">
+      <div id="waline" data-server-url={PUBLIC_WALINE_SERVER_URL} />
+    </section>
+  )
+}
+
+<script>
+  import { init } from "@waline/client";
+  import "@waline/client/style";
+
+  let walineInstance: ReturnType<typeof init> | null = null;
+
+  function loadWaline() {
+    const el = document.querySelector<HTMLElement>("#waline");
+    if (!el) return null;
+
+    const serverURL = el.dataset.serverUrl;
+    if (!serverURL) return null;
+
+    return init({
+      el: "#waline",
+      serverURL,
+      path: window.location.pathname,
+      lang: "en",
+      dark: 'html[data-theme="dark"]',
+      meta: ["nick"],
+      requiredMeta: ["nick"],
+      pageSize: 10,
+      reaction: true,
+      search: false,
+      imageUploader: false,
+    });
+  }
+
+  function setup() {
+    if (walineInstance?.destroy) {
+      walineInstance.destroy();
+    }
+    walineInstance = loadWaline();
+  }
+
+  setup();
+  document.addEventListener("astro:after-swap", setup);
+</script>
