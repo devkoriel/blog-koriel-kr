@@ -1,5 +1,6 @@
 # AstroPaper 📄
 
+![AstroPaper](public/astropaper-og.jpg)
 [![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/community/file/1356898632249991861)
 ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![GitHub](https://img.shields.io/github/license/satnaing/astro-paper?color=%232F3741&style=for-the-badge)
@@ -29,7 +30,14 @@ _Note: I've tested screen-reader accessibility of AstroPaper using **VoiceOver**
 
 ## ✅ Lighthouse Score
 
-Lighthouse Score: **100 / 100 / 100 / 100** ([PageSpeed](https://pagespeed.web.dev/report?url=https%3A%2F%2Fblog.koriel.kr%2F&form_factor=desktop))
+<p align="center">
+  <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fblog.koriel.kr%2F&form_factor=desktop">
+    <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdevkoriel%2Fblog-koriel-kr%2Fmain%2Flighthouse-badges.json&query=%24.performance&label=Performance&color=brightgreen&logo=lighthouse&logoColor=white&style=for-the-badge&suffix=%25" alt="Performance" />
+    <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdevkoriel%2Fblog-koriel-kr%2Fmain%2Flighthouse-badges.json&query=%24.accessibility&label=Accessibility&color=brightgreen&logo=lighthouse&logoColor=white&style=for-the-badge&suffix=%25" alt="Accessibility" />
+    <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdevkoriel%2Fblog-koriel-kr%2Fmain%2Flighthouse-badges.json&query=%24.bestPractices&label=Best%20Practices&color=brightgreen&logo=lighthouse&logoColor=white&style=for-the-badge&suffix=%25" alt="Best Practices" />
+    <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdevkoriel%2Fblog-koriel-kr%2Fmain%2Flighthouse-badges.json&query=%24.seo&label=SEO&color=brightgreen&logo=lighthouse&logoColor=white&style=for-the-badge&suffix=%25" alt="SEO" />
+  </a>
+</p>
 
 ## 🚀 Project Structure
 
