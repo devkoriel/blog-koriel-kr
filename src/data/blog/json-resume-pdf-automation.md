@@ -1,7 +1,7 @@
 ---
 title: "LinkedIn 프로필을 PDF 이력서로 자동화하기 — JSON Resume + GitHub Actions"
 author: Jinsoo Heo
-pubDatetime: 2026-02-22T15:00:00.000Z
+pubDatetime: 2026-02-22T05:42:00.000Z
 draft: false
 tags:
   - development
