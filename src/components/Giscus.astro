@@ -10,32 +10,50 @@
     var container = document.querySelector(".giscus");
     if (!container) return;
 
-    // Already loaded (e.g. bfcache restore)
-    if (container.querySelector("iframe.giscus-frame")) return;
+    function loadGiscus() {
+      // Already loaded (e.g. bfcache restore)
+      if (container.querySelector("iframe.giscus-frame")) return;
 
-    container.innerHTML = "";
+      container.innerHTML = "";
 
-    var theme =
-      document.documentElement.getAttribute("data-theme") === "dark"
-        ? "dark"
-        : "light";
+      var theme =
+        document.documentElement.getAttribute("data-theme") === "dark"
+          ? "dark"
+          : "light";
 
-    var s = document.createElement("script");
-    s.src = "https://giscus.app/client.js";
-    s.setAttribute("data-repo", "devkoriel/blog-koriel-kr");
-    s.setAttribute("data-repo-id", "R_kgDORVH_1w");
-    s.setAttribute("data-category", "General");
-    s.setAttribute("data-category-id", "DIC_kwDORVH_184C247J");
-    s.setAttribute("data-mapping", "pathname");
-    s.setAttribute("data-strict", "0");
-    s.setAttribute("data-reactions-enabled", "1");
-    s.setAttribute("data-emit-metadata", "0");
-    s.setAttribute("data-input-position", "top");
-    s.setAttribute("data-theme", theme);
-    s.setAttribute("data-lang", "en");
-    s.crossOrigin = "anonymous";
-    s.async = true;
-    container.appendChild(s);
+      var s = document.createElement("script");
+      s.src = "https://giscus.app/client.js";
+      s.setAttribute("data-repo", "devkoriel/blog-koriel-kr");
+      s.setAttribute("data-repo-id", "R_kgDORVH_1w");
+      s.setAttribute("data-category", "General");
+      s.setAttribute("data-category-id", "DIC_kwDORVH_184C247J");
+      s.setAttribute("data-mapping", "pathname");
+      s.setAttribute("data-strict", "0");
+      s.setAttribute("data-reactions-enabled", "1");
+      s.setAttribute("data-emit-metadata", "0");
+      s.setAttribute("data-input-position", "top");
+      s.setAttribute("data-theme", theme);
+      s.setAttribute("data-lang", "en");
+      s.crossOrigin = "anonymous";
+      s.async = true;
+      container.appendChild(s);
+    }
+
+    // Lazy-load Giscus when the comment section scrolls into view
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          if (entries[0].isIntersecting) {
+            observer.disconnect();
+            loadGiscus();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      observer.observe(container);
+    } else {
+      loadGiscus();
+    }
   })();
 
   // Theme sync observer — register once globally
