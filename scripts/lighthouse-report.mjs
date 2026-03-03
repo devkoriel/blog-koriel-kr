@@ -51,14 +51,14 @@ function main() {
     const a = r.accessibility;
     const bp = r["best-practices"];
     const s = r.seo;
-    if (p < 95 || a < 100 || bp < 100 || s < 100) allPass = false;
+    if (p < 100 || a < 100 || bp < 100 || s < 100) allPass = false;
     lines.push(`| \`${r.url}\` | ${p} | ${a} | ${bp} | ${s} |`);
   }
 
   lines.push("");
   lines.push(
     allPass
-      ? "All pages pass thresholds (Perf >= 95, others = 100)."
+      ? "All pages pass thresholds (Perf/A11y/BP/SEO = 100)."
       : "Some pages are below threshold."
   );
 

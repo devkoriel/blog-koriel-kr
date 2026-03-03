@@ -13,11 +13,15 @@ export function rehypeLazyImages() {
       if (node.tagName === "img") {
         node.properties ??= {};
         node.properties.decoding = "async";
+        if (node.properties.width && !node.properties.sizes) {
+          node.properties.sizes = "(min-width: 768px) 768px, 100vw";
+        }
         if (imageCount === 0) {
           node.properties.loading = "eager";
           node.properties.fetchpriority = "high";
         } else {
           node.properties.loading = "lazy";
+          node.properties.fetchpriority = "low";
         }
         imageCount++;
       }

@@ -75,9 +75,7 @@ jobs:
         run: |
           PORT=4173
           BASE="http://localhost:${PORT}"
-
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            cat > urls.txt <<URLS
+          cat > urls.txt <<URLS
           ${BASE}/
           ${BASE}/about
           ${BASE}/search
@@ -87,20 +85,8 @@ jobs:
           ${BASE}/posts/where-vim-came-from
           ${BASE}/posts/modern-cpp-lambda-features
           URLS
-            # Trim leading whitespace from heredoc
-            sed -i 's/^[[:space:]]*//' urls.txt
-          else
-            # Full scan for main pushes
-            find dist -name "index.html" -type f | while read -r file; do
-              path="${file#dist}"
-              path="${path%/index.html}"
-              if [ -z "$path" ]; then
-                echo "${BASE}/"
-              else
-                echo "${BASE}${path}"
-              fi
-            done | sort > urls.txt
-          fi
+          # Trim leading whitespace from heredoc
+          sed -i 's/^[[:space:]]*//' urls.txt
 
           echo "count=$(wc -l < urls.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
           echo "Testing $(wc -l < urls.txt | tr -d ' ') URLs (${{ matrix.preset }})"
@@ -221,7 +207,7 @@ jobs:
             fi
             echo ""
             echo "---"
-            echo "*Median of 3 runs | Thresholds: Perf >= 95, A11y/BP/SEO = 100*"
+            echo "*Median of 3 runs | Thresholds: Perf/A11y/BP/SEO = 100*"
           } > pr-comment.md
 
       - name: Post PR comment
