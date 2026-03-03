@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { PUBLIC_CF_ANALYTICS_TOKEN } from "astro:env/client";
 import { SITE } from "@/config";
@@ -83,7 +82,7 @@ const structuredData = {
 <html
   dir={SITE.dir}
   lang={pageLang}
-  class={`${scrollSmooth && "scroll-smooth"}`}
+  class={scrollSmooth ? "scroll-smooth" : undefined}
 >
   <head>
     <meta charset="UTF-8" />
@@ -104,8 +103,6 @@ const structuredData = {
     <meta name="description" content={description} />
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="prefetch" href="/llms.txt" />
-    <link rel="prefetch" href="/ai.txt" />
 
     <!-- Open Graph -->
     <meta property="og:type" content={isArticle ? "article" : "website"} />
@@ -173,49 +170,43 @@ const structuredData = {
       )
     }
 
-    <ClientRouter />
-
     <script is:inline>
       const primaryColorScheme = "";
-      const currentTheme = localStorage.getItem("theme");
-      function getPreferTheme() {
-        if (currentTheme) return currentTheme;
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+      function getPreferredTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) return savedTheme;
         if (primaryColorScheme) return primaryColorScheme;
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        return prefersDark.matches ? "dark" : "light";
       }
-      let themeValue = getPreferTheme();
-      function setPreference() {
+      let themeValue = getPreferredTheme();
+      function persistTheme() {
         localStorage.setItem("theme", themeValue);
-        reflectPreference();
+        applyTheme();
       }
-      function reflectPreference() {
+      function applyTheme() {
         document.firstElementChild.setAttribute("data-theme", themeValue);
-        document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
-        const body = document.body;
-        if (body) {
-          const bgColor = window.getComputedStyle(body).backgroundColor;
-          document.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);
-        }
+        document
+          .querySelector("#theme-btn")
+          ?.setAttribute("aria-label", `Toggle light and dark mode. Current mode: ${themeValue}`);
       }
-      reflectPreference();
-      window.onload = () => {
-        function setThemeFeature() {
-          reflectPreference();
-          document.querySelector("#theme-btn")?.addEventListener("click", () => {
+      applyTheme();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const themeButton = document.querySelector("#theme-btn");
+        if (themeButton && !themeButton.hasAttribute("data-theme-listener")) {
+          themeButton.setAttribute("data-theme-listener", "true");
+          themeButton.addEventListener("click", () => {
             themeValue = themeValue === "light" ? "dark" : "light";
-            setPreference();
+            persistTheme();
           });
         }
-        setThemeFeature();
-        document.addEventListener("astro:after-swap", setThemeFeature);
-      };
-      document.addEventListener("astro:before-swap", event => {
-        const bgColor = document.querySelector("meta[name='theme-color']")?.getAttribute("content");
-        event.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content", bgColor);
       });
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches: isDark }) => {
-        themeValue = isDark ? "dark" : "light";
-        setPreference();
+
+      prefersDark.addEventListener("change", ({ matches }) => {
+        if (localStorage.getItem("theme") || primaryColorScheme) return;
+        themeValue = matches ? "dark" : "light";
+        applyTheme();
       });
     </script>
 

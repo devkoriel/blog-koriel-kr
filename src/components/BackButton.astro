@@ -20,7 +20,7 @@ import { SITE } from "@/config";
 }
 
 <script>
-  /* Update Search Praam */
+  /* Update search params when navigating back from search results. */
   function updateGoBackUrl() {
     const backButton: HTMLAnchorElement | null =
       document.querySelector("#back-button");
@@ -32,6 +32,5 @@ import { SITE } from "@/config";
     }
   }
 
-  document.addEventListener("astro:page-load", updateGoBackUrl);
   updateGoBackUrl();
 </script>

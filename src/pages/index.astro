@@ -61,6 +61,7 @@ const websiteSchema = {
       </h1>
       <a
         target="_blank"
+        rel="noopener noreferrer"
         href="/rss.xml"
         class="inline-block"
         aria-label="rss feed"
@@ -133,11 +134,9 @@ const websiteSchema = {
 </Layout>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
-      ?.dataset?.layout;
-    if (indexLayout) {
-      sessionStorage.setItem("backUrl", "/");
-    }
-  });
+  const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+    ?.dataset?.layout;
+  if (indexLayout) {
+    sessionStorage.setItem("backUrl", "/");
+  }
 </script>
