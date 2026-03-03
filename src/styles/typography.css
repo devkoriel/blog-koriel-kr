@@ -88,6 +88,8 @@
 
     pre {
       @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
+      content-visibility: auto;
+      contain-intrinsic-size: auto 100px;
     }
   }
 

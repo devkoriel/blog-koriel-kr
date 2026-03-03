@@ -69,16 +69,13 @@ int main() {
 
 lambda의 문법은 크게 캡처(capture), 인자(parameter), 반환형(return type), 몸통(body)로 이루어져 있습니다.
 
-```cpp
+```text
 [captures](parameters) -> return type { body }
 
-/*
-* captures: comma(,)로 구분된 캡처들이 들어갑니다.
-* parameters: 함수의 인자들이 들어갑니다.
-* return type: 함수의 반환형입니다.
-* body: 함수의 몸통입니다.
-*/
-
+captures: comma(,)로 구분된 캡처들이 들어갑니다.
+parameters: 함수의 인자들이 들어갑니다.
+return type: 함수의 반환형입니다.
+body: 함수의 몸통입니다.
 ```
 
 캡처를 제외한 나머지 것들은 대부분 아시리라 봅니다. 그냥 함수와 동일합니다. 캡처는 lambda에서 사용할 변수나 상수들을 미리 지정하여 찍어오는 것입니다. 참조하여 찍어올 수도 있고 복사하여 찍어올 수도 있는데 그건 천천히 예시를 보면서 알아보겠습니다.
