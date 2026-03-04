@@ -17,7 +17,6 @@ lambda는 람다 표현식 또는 람다 함수, **익명 함수**(anonymous fun
 
 lambda는 함수 객체 클래스를 암시적으로 정의하고 함수 객체를 생성합니다. lambda로 생성된 함수 객체는 타입을 가지고 있긴 하지만 `decltype`이나 `sizeof`를 사용할 순 없습니다.
 
-  
 
 ## 1. 함수 객체 vs lambda
 
@@ -63,7 +62,6 @@ int main() {
 
 합계를 저장할 변수를 참조자로 전달받아 거기에 값을 누적시키는 함수를 구현했습니다. 함수 객체로 구현할 경우 번거롭게 구조체를 먼저 정의한 후 사용해야 합니다. 하지만 lambda는 그렇지 않죠. 단 몇줄만으로 끝났습니다. 굉장히 섹시합니다. 이제 왜 써야하는지는 알았으니 어떻게 쓰는지를 알아봅시다.
 
-  
 
 ## 2. lambda의 사용법
 
@@ -71,16 +69,13 @@ int main() {
 
 lambda의 문법은 크게 캡처(capture), 인자(parameter), 반환형(return type), 몸통(body)로 이루어져 있습니다.
 
-```cpp
+```text
 [captures](parameters) -> return type { body }
 
-/*
-* captures: comma(,)로 구분된 캡처들이 들어갑니다.
-* parameters: 함수의 인자들이 들어갑니다.
-* return type: 함수의 반환형입니다.
-* body: 함수의 몸통입니다.
-*/
-
+captures: comma(,)로 구분된 캡처들이 들어갑니다.
+parameters: 함수의 인자들이 들어갑니다.
+return type: 함수의 반환형입니다.
+body: 함수의 몸통입니다.
 ```
 
 캡처를 제외한 나머지 것들은 대부분 아시리라 봅니다. 그냥 함수와 동일합니다. 캡처는 lambda에서 사용할 변수나 상수들을 미리 지정하여 찍어오는 것입니다. 참조하여 찍어올 수도 있고 복사하여 찍어올 수도 있는데 그건 천천히 예시를 보면서 알아보겠습니다.
@@ -97,7 +92,6 @@ int main() {
 
 ```
 
-  
 
 ### 2-2. lambda의 parameter
 
@@ -114,7 +108,6 @@ int main() {
 
 ```
 
-  
 
 ### 2-3. lambda를 std::function에 대입
 
@@ -137,7 +130,6 @@ int main() {
 
 ```
 
-  
 
 ### 2-4. lambda를 함수의 파라미터로 사용
 
@@ -163,7 +155,6 @@ int main() {
 
 ```
 
-  
 
 ### 2-5. lambda를 반환하는 함수
 
@@ -187,7 +178,6 @@ int main() {
 
 ```
 
-  
 
 ### 2-6. lambda를 STL container에 저장
 
@@ -210,7 +200,6 @@ int main() {
 
 ```
 
-  
 
 ### 2-7. lambda의 반환형 명시
 
@@ -235,7 +224,6 @@ int main() {
 
 ```
 
-  
 
 ## 3. lambda의 캡처
 
@@ -261,7 +249,6 @@ int main() {
 
 ```
 
-  
 
 ### 3-2. 복사로 캡처
 
@@ -322,7 +309,6 @@ int main() {
 
 ```
 
-  
 
 ### 3-3. 여러개의 변수나 상수 캡처
 
@@ -368,11 +354,10 @@ int main() {
 
 ```
 
-  
 
 ### 3-4. 전역 변수 캡처
 
-전역 변수를 아래와 같이 캡처하면 오류가 발생합니다.
+전역 변수를 `[&sum]`으로 직접 캡처하면 오류가 발생합니다. 전역 변수를 캡처하기 위해서는 기본 캡처 모드(capture-default)를 사용해야 합니다.
 
 ```cpp
 #include <array>
@@ -382,41 +367,20 @@ int sum = 0;
 
 int main() {
     std::array<int, 5> numbers = { 1, 2, 3, 4, 5 };
-    
-    // 전역 변수 sum을 참조로 캡처
-    std::for_each(numbers.begin(), numbers.end(), [&sum](int& number) { 
-        // 'sum': 람다 캡처 변수는 바깥쪽 함수 범위에 속해야 합니다
+
+    // [&sum]으로 캡처하면 오류 발생:
+    // 'sum': 람다 캡처 변수는 바깥쪽 함수 범위에 속해야 합니다
+
+    // 기본 캡처 모드(capture-default)를 사용하면 OK
+    std::for_each(numbers.begin(), numbers.end(), [&](int& number) {
         sum += number;
     });
-    
+
     return 0;
 }
 
 ```
 
-전역 변수를 캡처하기 위해서는 기본 캡처 모드(capture-default)를 사용해야 합니다.
-
-```cpp
-#include <array>
-#include <algorithm>
-
-int sum = 0;
-
-int main() {
-    std::array<int, 5> numbers = { 1, 2, 3, 4, 5 };
-    
-    // 참조 방식의 기본 캡처 모드
-    std::for_each(numbers.begin(), numbers.end(), [&](int& number) { 
-        // OK
-        sum += number;
-    });
-    
-    return 0;
-}
-
-```
-
-  
 
 ### 3-5. 클래스 멤버 함수 속 lambda
 
@@ -447,7 +411,6 @@ int main() {
 
 클래스 멤버 함수안에서 정의되는 것뿐만 아니라 lambda 자체가 멤버로 선언될 수도 있습니다. 이럴 경우 기존 멤버 다루듯 하면 됩니다. `[this]`로 현재 객체를 참조로 캡처할 수 있는 것도 마찬가지입니다.
 
-  
 
 ### 3-6. lambda 재귀
 
@@ -469,7 +432,6 @@ int main() {
 
 팩토리얼 함수를 lambda와 재귀를 통해 구현해보았습니다. 간단한 코드이지만 주의해야할 점이 있습니다. lambda를 대입시킬 함수의 타입을 `auto` 키워드로 추론하면 안됩니다. 어찌보면 당연한 것이, `auto` 키워드를 쓰면 컴파일러가 타입을 추론하게 되는데, 타입이 제대로 추론되기도 전에 lambda 몸통에서 그 함수를 재귀적으로 호출하고 있기 때문입니다. lambda 재귀를 할땐 반드시 대입시킬 함수의 타입을 명시하여야 합니다.
 
-  
 
 ## 4. 정리
 
