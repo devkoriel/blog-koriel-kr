@@ -38,9 +38,8 @@ export default defineConfig({
       rehypeLazyImages,
     ],
     shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
-      themes: { light: "github-light", dark: "github-dark-dimmed" },
-      defaultColor: false,
+      // Single dark theme — eliminates unused light-theme CSS custom properties
+      theme: "github-dark-dimmed",
       wrap: false,
       transformers: [
         transformerFileName({ style: "v2", hideDot: false }),

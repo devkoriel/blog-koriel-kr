@@ -160,7 +160,9 @@ $ pip install python-telegram-bot requests python-dotenv
 -   텍스트 편집기(예: VS Code, 메모장)를 열고 `bot.py` 파일을 만듭니다.
 -   아래의 코드를 복사하여 붙여넣습니다:
 
-```
+먼저 필요한 모듈을 임포트하고 환경 변수를 설정합니다:
+
+```python
 import os
 import logging
 from telegram.ext import Updater, CommandHandler
@@ -168,68 +170,60 @@ from telegram import Update
 import requests
 from dotenv import load_dotenv
 
-# 로깅 설정
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
-
 logger = logging.getLogger(__name__)
 
-# 환경 변수 로드
 load_dotenv()
 
-# 환경 변수에서 토큰 및 API 키 가져오기
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TESSIE_API_KEY = os.getenv('TESSIE_API_KEY')
-VEHICLE_VIN = os.getenv('VEHICLE_VIN')  # 차량의 VIN 번호
+VEHICLE_VIN = os.getenv('VEHICLE_VIN')
 
-# Tessie API 헤더 설정
 TESSIE_HEADERS = {
     "accept": "application/json",
     "authorization": f"Bearer {TESSIE_API_KEY}"
 }
 
-# 승인된 사용자 ID 목록 (환경 변수에서 가져오기)
 AUTHORIZED_USERS = os.getenv('AUTHORIZED_USERS')
 if AUTHORIZED_USERS:
     AUTHORIZED_USERS = [int(user_id) for user_id in AUTHORIZED_USERS.split(',')]
 else:
     AUTHORIZED_USERS = []
+```
 
+승인된 사용자만 봇을 사용할 수 있도록 데코레이터를 만듭니다:
+
+```python
 def restricted(func):
     """함수 접근을 승인된 사용자로 제한"""
     def wrapper(update: Update, context):
         user_id = update.effective_user.id
-        logger.info(f"사용자 ID: {user_id}")
-        logger.info(f"승인된 사용자: {AUTHORIZED_USERS}")
         if user_id not in AUTHORIZED_USERS:
             update.message.reply_text("🚫 접근 권한이 없습니다.")
             return
         return func(update, context)
     return wrapper
+```
 
-# 마일을 킬로미터로 변환하는 함수
+Tessie API와 통신하기 위한 핵심 함수들을 작성합니다:
+
+```python
 def miles_to_km(miles):
     try:
         return miles * 1.60934
     except (TypeError, ValueError):
         return 'N/A'
 
-# API 요청 함수
 def get_vehicle_info():
     url = "https://api.tessie.com/vehicles"
     response = requests.get(url, headers=TESSIE_HEADERS)
     if response.status_code == 200:
         data = response.json()
-        if 'results' in data:
-            return data
-        else:
-            logger.error(f"Unexpected response structure: {data}")
-            return None
-    else:
-        logger.error(f"Failed to get vehicle info: {response.text}")
-        return None
+        return data if 'results' in data else None
+    return None
 
 def send_vehicle_command(command, params=None):
     url = f"https://api.tessie.com/{VEHICLE_VIN}/command/{command}"
@@ -237,404 +231,113 @@ def send_vehicle_command(command, params=None):
         response = requests.post(url, headers=TESSIE_HEADERS, params=params)
         if response.status_code == 200:
             data = response.json()
-            if 'result' in data:
-                return data
-            else:
-                logger.error(f"Unexpected response structure: {data}")
-                return None
-        else:
-            logger.error(f"Failed to execute command '{command}': {response.text}")
-            return None
+            return data if 'result' in data else None
+        return None
     except requests.RequestException as e:
         logger.error(f"Request exception: {e}")
         return None
+```
 
-def get_drivers():
-    url = f"https://api.tessie.com/{VEHICLE_VIN}/drivers"
-    response = requests.get(url, headers=TESSIE_HEADERS)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        logger.error(f"Failed to get drivers: {response.text}")
-        return None
+차량 상태를 조회하는 `/status` 명령어 핸들러입니다. 배터리, 온도, 위치 등 다양한 정보를 표시합니다:
 
-def get_invitations():
-    url = f"https://api.tessie.com/{VEHICLE_VIN}/invitations"
-    response = requests.get(url, headers=TESSIE_HEADERS)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        logger.error(f"Failed to get invitations: {response.text}")
-        return None
-
-# 명령어 핸들러 함수
-@restricted
-def start(update: Update, context):
-    update.message.reply_text('안녕하세요! 테슬라 봇입니다. 명령어 목록을 보시려면 /help를 입력하세요.')
-
+```python
 @restricted
 def status(update: Update, context):
     vehicle_info = get_vehicle_info()
-    logger.info(f"vehicle_info: {vehicle_info}")  # 디버깅을 위한 로그 출력
     if vehicle_info and 'results' in vehicle_info and len(vehicle_info['results']) > 0:
-        vehicle = vehicle_info['results'][0]  # 첫 번째 차량 사용
+        vehicle = vehicle_info['results'][0]
         last_state = vehicle.get('last_state', {})
         charge_state = last_state.get('charge_state', {})
         climate_state = last_state.get('climate_state', {})
         drive_state = last_state.get('drive_state', {})
         vehicle_state = last_state.get('vehicle_state', {})
         vehicle_config = last_state.get('vehicle_config', {})
-        
-        # 차량 기본 정보
-        display_name = last_state.get('display_name', 'N/A')
-        vin = vehicle.get('vin', 'N/A')
-        plate = vehicle.get('plate', 'N/A')
-        state = last_state.get('state', 'N/A')
-        
-        # 충전 상태
+
         battery_level = charge_state.get('battery_level', 'N/A')
         battery_range = charge_state.get('battery_range', 'N/A')
         if isinstance(battery_range, (int, float)):
-            battery_range_km = miles_to_km(battery_range)  # 마일을 km로 변환
-            battery_range = f"{battery_range_km:.2f} km"
-        charging_state = charge_state.get('charging_state', 'N/A')
-        charge_rate = charge_state.get('charge_rate', 'N/A')
-        if isinstance(charge_rate, (int, float)):
-            charge_rate = f"{charge_rate:.2f} km/h"
-        time_to_full_charge = charge_state.get('time_to_full_charge', 'N/A')
-        if isinstance(time_to_full_charge, (int, float)):
-            time_to_full_charge = f"{time_to_full_charge:.2f} 시간"
-        
-        # 기후 상태
-        inside_temp = climate_state.get('inside_temp', 'N/A')
-        if isinstance(inside_temp, (int, float)):
-            inside_temp = f"{inside_temp:.1f}°C"
-        outside_temp = climate_state.get('outside_temp', 'N/A')
-        if isinstance(outside_temp, (int, float)):
-            outside_temp = f"{outside_temp:.1f}°C"
-        is_climate_on = climate_state.get('is_climate_on', False)
-        
-        # 주행 상태
-        speed = drive_state.get('speed', 'N/A')
-        if isinstance(speed, (int, float)):
-            speed = f"{speed:.1f} km/h"
-        power = drive_state.get('power', 'N/A')
-        if isinstance(power, (int, float)):
-            power = f"{power:.1f} kW"
+            battery_range = f"{miles_to_km(battery_range):.2f} km"
+
         latitude = drive_state.get('latitude', 'N/A')
         longitude = drive_state.get('longitude', 'N/A')
-        heading = drive_state.get('heading', 'N/A')
-        if isinstance(heading, (int, float)):
-            heading = f"{heading:.1f}°"
-        
-        # 차량 상태
-        locked = vehicle_state.get('locked', 'N/A')
-        odometer = vehicle_state.get('odometer', 'N/A')
-        if isinstance(odometer, (int, float)):
-            odometer_km = miles_to_km(odometer)  # 마일을 km로 변환
-            odometer = f"{odometer_km:.2f} km"
-        sentry_mode = vehicle_state.get('sentry_mode', 'N/A')
-        
-        # 차량 구성
-        car_type = vehicle_config.get('car_type', 'N/A')
-        exterior_color = vehicle_config.get('exterior_color', 'N/A')
-        wheel_type = vehicle_config.get('wheel_type', 'N/A')
-        charger_voltage = charge_state.get('charger_voltage', 'N/A')
-        charger_power = charge_state.get('charger_power', 'N/A')
-        
-        # 위치 정보 링크 생성
-        if latitude != 'N/A' and longitude != 'N/A':
-            location_url = f"https://www.google.com/maps/search/?api=1&query={latitude},{longitude}"
-            location_text = f"[지도에서 보기]({location_url})"
-        else:
-            location_text = "N/A"
-        
-        # 상태 메시지 작성
+        location_text = f"[지도에서 보기](https://www.google.com/maps/search/?api=1&query={latitude},{longitude})" if latitude != 'N/A' else "N/A"
+
         status_text = f"""
-🚗 **차량 이름**: {display_name}
-🔢 **VIN**: {vin}
-🔖 **번호판**: {plate}
-📡 **차량 상태**: {state}
-
-🔋 **배터리 수준**: {battery_level}%
-🔌 **배터리 주행 가능 거리**: {battery_range}
-⚡️ **충전 상태**: {charging_state}
-⚡️ **충전 속도**: {charge_rate}
-⏳ **완충까지 시간**: {time_to_full_charge}
-🔌 **충전 전압**: {charger_voltage} V
-⚡️ **충전 전력**: {charger_power} kW
-
-🌡 **실내 온도**: {inside_temp}
-🌡 **실외 온도**: {outside_temp}
-❄️ **에어컨 상태**: {'켜짐' if is_climate_on else '꺼짐'}
-
-🚙 **속도**: {speed}
-🔋 **전력 소비**: {power}
+🚗 **차량 이름**: {last_state.get('display_name', 'N/A')}
+🔋 **배터리**: {battery_level}% ({battery_range})
+⚡️ **충전 상태**: {charge_state.get('charging_state', 'N/A')}
+🌡 **실내/실외 온도**: {climate_state.get('inside_temp', 'N/A')}°C / {climate_state.get('outside_temp', 'N/A')}°C
+🔒 **잠금**: {'잠김' if vehicle_state.get('locked') else '열림'}
 📍 **위치**: {location_text}
-🧭 **방향**: {heading}°
-
-🔒 **잠금 상태**: {'잠김' if locked else '열림'}
-🛣 **주행 거리계**: {odometer}
-🎥 **센트리 모드**: {'활성화' if sentry_mode else '비활성화'}
-
-🚘 **차량 종류**: {car_type}
-🎨 **외장 색상**: {exterior_color}
-🛞 **휠 종류**: {wheel_type}
+🛣 **주행 거리계**: {miles_to_km(vehicle_state.get('odometer', 0)):.0f} km
 """
         update.message.reply_text(status_text, parse_mode='Markdown', disable_web_page_preview=True)
     else:
         update.message.reply_text('차량 정보를 가져올 수 없습니다.')
+```
 
+차량 제어 명령어 핸들러들입니다 (잠금, 서리 제거, 창문 닫기 등):
+
+```python
 @restricted
 def lock(update: Update, context):
-    params = {
-        'retry_duration': 40,         # 기본값
-        'wait_for_completion': 'true' # 기본값
-    }
+    params = {'retry_duration': 40, 'wait_for_completion': 'true'}
     result = send_vehicle_command('lock', params=params)
-    if result:
-        if result.get('result'):
-            update.message.reply_text('🔒 차량이 잠겼습니다.')
-        else:
-            update.message.reply_text('차량 잠금에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
+    if result and result.get('result'):
+        update.message.reply_text('🔒 차량이 잠겼습니다.')
     else:
-        update.message.reply_text('차량 잠금에 실패했습니다. API 요청을 확인하세요.')
+        update.message.reply_text('차량 잠금에 실패했습니다.')
 
 @restricted
 def unlock(update: Update, context):
-    params = {
-        'retry_duration': 40,         # 기본값
-        'wait_for_completion': 'true' # 기본값
-    }
+    params = {'retry_duration': 40, 'wait_for_completion': 'true'}
     result = send_vehicle_command('unlock', params=params)
-    if result:
-        if result.get('result'):
-            update.message.reply_text('🔓 차량 잠금 해제에 성공했습니다.')
-        else:
-            update.message.reply_text('차량 잠금 해제에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
+    if result and result.get('result'):
+        update.message.reply_text('🔓 차량 잠금 해제에 성공했습니다.')
     else:
-        update.message.reply_text('차량 잠금 해제에 실패했습니다. API 요청을 확인하세요.')
-
-@restricted
-def enable_guest(update: Update, context):
-    result = send_vehicle_command('enable_guest')
-    if result:
-        if result.get('result'):
-            update.message.reply_text('👥 Guest 모드가 활성화되었습니다.')
-        else:
-            update.message.reply_text('Guest 모드 활성화에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
-    else:
-        update.message.reply_text('Guest 모드 활성화에 실패했습니다. API 요청을 확인하세요.')
-
-@restricted
-def disable_guest(update: Update, context):
-    result = send_vehicle_command('disable_guest')
-    if result:
-        if result.get('result'):
-            update.message.reply_text('👤 Guest 모드가 비활성화되었습니다.')
-        else:
-            update.message.reply_text('Guest 모드 비활성화에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
-    else:
-        update.message.reply_text('Guest 모드 비활성화에 실패했습니다. API 요청을 확인하세요.')
-
-@restricted
-def enable_valet(update: Update, context):
-    result = send_vehicle_command('enable_valet')
-    if result:
-        if result.get('result'):
-            update.message.reply_text('🚗 발렛 모드가 활성화되었습니다.')
-        else:
-            update.message.reply_text('발렛 모드 활성화에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
-    else:
-        update.message.reply_text('발렛 모드 활성화에 실패했습니다. API 요청을 확인하세요.')
-
-@restricted
-def disable_valet(update: Update, context):
-    result = send_vehicle_command('disable_valet')
-    if result:
-        if result.get('result'):
-            update.message.reply_text('🚗 발렛 모드가 비활성화되었습니다.')
-        else:
-            update.message.reply_text('발렛 모드 비활성화에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
-    else:
-        update.message.reply_text('발렛 모드 비활성화에 실패했습니다. API 요청을 확인하세요.')
+        update.message.reply_text('차량 잠금 해제에 실패했습니다.')
 
 @restricted
 def start_defrost(update: Update, context):
-    params = {
-        'retry_duration': 40,         # 기본값
-        'wait_for_completion': 'true' # 기본값
-    }
+    params = {'retry_duration': 40, 'wait_for_completion': 'true'}
     result = send_vehicle_command('start_max_defrost', params=params)
-    if result:
-        if result.get('result'):
-            update.message.reply_text('❄️ 차량의 서리 제거가 시작되었습니다.')
-        else:
-            update.message.reply_text('서리 제거 시작에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
+    if result and result.get('result'):
+        update.message.reply_text('❄️ 차량의 서리 제거가 시작되었습니다.')
     else:
-        update.message.reply_text('서리 제거 시작에 실패했습니다. API 요청을 확인하세요.')
-
-@restricted
-def stop_defrost(update: Update, context):
-    params = {
-        'retry_duration': 40,         # 기본값
-        'wait_for_completion': 'true' # 기본값
-    }
-    result = send_vehicle_command('stop_max_defrost', params=params)
-    if result:
-        if result.get('result'):
-            update.message.reply_text('❄️ 차량의 서리 제거가 중지되었습니다.')
-        else:
-            update.message.reply_text('서리 제거 중지에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
-    else:
-        update.message.reply_text('서리 제거 중지에 실패했습니다. API 요청을 확인하세요.')
+        update.message.reply_text('서리 제거 시작에 실패했습니다.')
 
 @restricted
 def close_windows(update: Update, context):
-    params = {
-        'retry_duration': 40,         # 기본값
-        'wait_for_completion': 'true' # 기본값
-    }
+    params = {'retry_duration': 40, 'wait_for_completion': 'true'}
     result = send_vehicle_command('close_windows', params=params)
-    if result:
-        if result.get('result'):
-            update.message.reply_text('🪟 모든 창문이 닫혔습니다.')
-        else:
-            update.message.reply_text('창문 닫기에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
+    if result and result.get('result'):
+        update.message.reply_text('🪟 모든 창문이 닫혔습니다.')
     else:
-        update.message.reply_text('창문 닫기에 실패했습니다. API 요청을 확인하세요.')
+        update.message.reply_text('창문 닫기에 실패했습니다.')
+```
 
-@restricted
-def open_charge_port(update: Update, context):
-    params = {
-        'retry_duration': 40,         # 기본값
-        'wait_for_completion': 'true' # 기본값
-    }
-    result = send_vehicle_command('open_charge_port', params=params)
-    if result:
-        if result.get('result'):
-            update.message.reply_text('🔌 충전 포트가 열렸습니다.')
-        else:
-            update.message.reply_text('충전 포트 열기에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
-    else:
-        update.message.reply_text('충전 포트 열기에 실패했습니다. API 요청을 확인하세요.')
+마지막으로 봇을 시작하는 `main()` 함수입니다:
 
-@restricted
-def close_charge_port(update: Update, context):
-    params = {
-        'retry_duration': 40,         # 기본값
-        'wait_for_completion': 'true' # 기본값
-    }
-    result = send_vehicle_command('close_charge_port', params=params)
-    if result:
-        if result.get('result'):
-            update.message.reply_text('🔒 충전 포트가 닫혔습니다.')
-        else:
-            update.message.reply_text('충전 포트 닫기에 실패했습니다.')
-            if result.get('woke'):
-                update.message.reply_text('차량이 잠들어 있습니다.')
-    else:
-        update.message.reply_text('충전 포트 닫기에 실패했습니다. API 요청을 확인하세요.')
-
-@restricted
-def get_drivers_command(update: Update, context):
-    drivers = get_drivers()
-    if drivers and 'results' in drivers:
-        driver_list = ""
-        for driver in drivers['results']:
-            first_name = driver.get('driver_first_name', 'N/A')
-            last_name = driver.get('driver_last_name', 'N/A')
-            user_id = driver.get('user_id', 'N/A')
-            driver_list += f"{first_name} {last_name} (ID: {user_id})\n"
-        update.message.reply_text(f"🚘 등록된 드라이버 목록:\n{driver_list}")
-    else:
-        update.message.reply_text('드라이버 목록을 가져올 수 없습니다.')
-
-@restricted
-def get_invitations_command(update: Update, context):
-    invitations = get_invitations()
-    if invitations and 'results' in invitations:
-        invitation_list = ""
-        for invitation in invitations['results']:
-            id = invitation.get('id', 'N/A')
-            state = invitation.get('state', 'N/A')
-            share_link = invitation.get('share_link', 'N/A')
-            invitation_list += f"ID: {id}, 상태: {state}, 링크: {share_link}\n"
-        update.message.reply_text(f"✉️ 초대 목록:\n{invitation_list}")
-    else:
-        update.message.reply_text('초대 목록을 가져올 수 없습니다.')
-
-@restricted
-def help_command(update: Update, context):
-    help_text = """
-사용 가능한 명령어:
-/start - 봇 시작
-/status - 차량 상태 조회
-/lock - 차량 잠금
-/unlock - 차량 잠금 해제
-/start_defrost - 서리 제거 시작
-/stop_defrost - 서리 제거 중지
-/close_windows - 모든 창문 닫기
-/open_charge_port - 충전 포트 열기
-/close_charge_port - 충전 포트 닫기
-/enable_guest - Guest 모드 활성화
-/disable_guest - Guest 모드 비활성화
-/enable_valet - 발렛 모드 활성화
-/disable_valet - 발렛 모드 비활성화
-/get_drivers - 드라이버 목록 조회
-/get_invitations - 초대 목록 조회
-    """
-    update.message.reply_text(help_text)
-
+```python
 def main():
     updater = Updater(TELEGRAM_TOKEN, use_context=True)
-    dispatcher = updater.dispatcher
+    dp = updater.dispatcher
 
-    # 명령어 핸들러 등록
-    dispatcher.add_handler(CommandHandler('start', start))
-    dispatcher.add_handler(CommandHandler('help', help_command))
-    dispatcher.add_handler(CommandHandler('status', status))
-    dispatcher.add_handler(CommandHandler('lock', lock))
-    dispatcher.add_handler(CommandHandler('unlock', unlock))
-    dispatcher.add_handler(CommandHandler('start_defrost', start_defrost))
-    dispatcher.add_handler(CommandHandler('stop_defrost', stop_defrost))
-    dispatcher.add_handler(CommandHandler('close_windows', close_windows))
-    dispatcher.add_handler(CommandHandler('open_charge_port', open_charge_port))
-    dispatcher.add_handler(CommandHandler('close_charge_port', close_charge_port))
-    dispatcher.add_handler(CommandHandler('enable_guest', enable_guest))
-    dispatcher.add_handler(CommandHandler('disable_guest', disable_guest))
-    dispatcher.add_handler(CommandHandler('enable_valet', enable_valet))
-    dispatcher.add_handler(CommandHandler('disable_valet', disable_valet))
-    dispatcher.add_handler(CommandHandler('get_drivers', get_drivers_command))
-    dispatcher.add_handler(CommandHandler('get_invitations', get_invitations_command))
+    dp.add_handler(CommandHandler('start', start))
+    dp.add_handler(CommandHandler('help', help_command))
+    dp.add_handler(CommandHandler('status', status))
+    dp.add_handler(CommandHandler('lock', lock))
+    dp.add_handler(CommandHandler('unlock', unlock))
+    dp.add_handler(CommandHandler('start_defrost', start_defrost))
+    dp.add_handler(CommandHandler('close_windows', close_windows))
+    dp.add_handler(CommandHandler('open_charge_port', open_charge_port))
+    dp.add_handler(CommandHandler('close_charge_port', close_charge_port))
 
-    # 봇 시작
     updater.start_polling()
     updater.idle()
 
 if __name__ == '__main__':
     main()
-
 ```
 
 2. **`Procfile` 작성하기**
@@ -769,70 +472,7 @@ $ heroku ps:scale worker=1
 
 또한, `/status` 명령어는 차량의 다양한 정보를 상세하게 표시합니다. 예를 들어, 배터리 수준, 충전 상태, 실내/실외 온도, 차량 위치 등을 한눈에 확인할 수 있습니다.
 
-#### 에러 처리 강화
-
-명령어 실행 중 문제가 발생했을 때, 사용자에게 명확한 피드백을 제공하기 위해 코드를 수정했습니다. 예를 들어, 차량이 잠들어 있을 경우 사용자에게 이를 알리는 메시지를 추가했습니다.
-
-```python
-def send_vehicle_command(command, params=None):
-    url = f"https://api.tessie.com/{VEHICLE_VIN}/command/{command}"
-    try:
-        response = requests.post(url, headers=TESSIE_HEADERS, params=params)
-        if response.status_code == 200:
-            data = response.json()
-            if 'result' in data:
-                return data
-            else:
-                logger.error(f"Unexpected response structure: {data}")
-                return None
-        else:
-            logger.error(f"Failed to execute command '{command}': {response.text}")
-            return None
-    except requests.RequestException as e:
-        logger.error(f"Request exception: {e}")
-        return None
-
-```
-
-#### 추가 정보 표시
-
-`/status` 명령어에서 배터리 충전 전압과 전력 소비 등의 추가 정보를 표시하도록 코드를 확장했습니다.
-
-```python
-# 상태 메시지 작성
-status_text = f"""
-🚗 차량 이름: {display_name}
-🔢 VIN: {vin}
-🔖 번호판: {plate}
-📡 차량 상태: {state}
-
-🔋 배터리 수준: {battery_level}%
-🔌 배터리 주행 가능 거리: {battery_range}
-⚡️ 충전 상태: {charging_state}
-⚡️ 충전 속도: {charge_rate}
-⏳ 완충까지 시간: {time_to_full_charge}
-
-🌡 실내 온도: {inside_temp}
-🌡 실외 온도: {outside_temp}
-❄️ 에어컨 상태: {'켜짐' if is_climate_on else '꺼짐'}
-
-🚙 속도: {speed}
-🔋 전력 소비: {power}
-🔌 충전 전압: {charger_voltage}
-⚡️ 충전 전력: {charger_power}
-📍 위치: {location_text}
-🧭 방향: {heading}
-
-🔒 잠금 상태: {'잠김' if locked else '열림'}
-🛣 주행 거리계: {odometer}
-🎥 센트리 모드: {'활성화' if sentry_mode else '비활성화'}
-
-🚘 차량 종류: {car_type}
-🎨 외장 색상: {exterior_color}
-🛞 휠 종류: {wheel_type}
-"""
-
-```
+위 5단계의 `send_vehicle_command` 함수에서 에러 처리를 강화했습니다. API 응답이 예상과 다를 경우 `None`을 반환하고, 네트워크 오류도 `RequestException`으로 처리합니다. `/status` 명령어에서는 배터리, 온도, 위치 등의 정보를 한눈에 볼 수 있도록 구성했습니다.
 
 ### 9단계: 유지 관리 및 보안
 

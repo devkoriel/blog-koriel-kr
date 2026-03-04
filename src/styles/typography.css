@@ -88,17 +88,19 @@
 
     pre {
       @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
+      content-visibility: auto;
+      contain-intrinsic-size: auto 100px;
     }
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
-  /* Always use dark theme for code blocks regardless of site theme */
+  /* Dark theme code blocks (single Shiki theme — colors applied inline) */
   .astro-code {
-    @apply flex rounded-lg border border-[#30363d] bg-(--shiki-dark-bg) text-(--shiki-dark) outline-border [&_span]:text-(--shiki-dark);
+    @apply flex rounded-lg border border-[#30363d] outline-border;
 
     /* Improve comment color contrast for WCAG AA (4.5:1 on #22272e) */
     span[style*="#768390"] {
-      --shiki-dark: #8b949e !important;
+      color: #8b949e !important;
     }
   }
 
