@@ -71,7 +71,8 @@
     }
 
     .astro-code code {
-      @apply flex-[1_0_100%] bg-inherit p-0 text-inherit;
+      @apply flex-[1_0_100%] bg-inherit p-0;
+      color: inherit !important;
     }
 
     blockquote {
