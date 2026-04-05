@@ -125,6 +125,33 @@ jobs:
           LIGHTHOUSE_PRESET: ${{ matrix.preset }}
         run: node scripts/lighthouse-report.mjs
 
+      - name: Dump a11y failures
+        if: always()
+        run: |
+          node -e "
+          const fs = require('fs');
+          const manifest = JSON.parse(fs.readFileSync('.lighthouseci/manifest.json', 'utf8'));
+          manifest.forEach(entry => {
+            const r = JSON.parse(fs.readFileSync(entry.jsonPath, 'utf8'));
+            const url = r.requestedUrl.replace(/http:\/\/localhost:\d+/, '');
+            const a11y = r.categories.accessibility.score;
+            if (a11y < 1) {
+              console.log('FAIL', url, 'a11y=' + a11y);
+              Object.entries(r.audits).forEach(([k,v]) => {
+                if (v.score !== null && v.score < 1 && r.categories.accessibility.auditRefs.some(a => a.id === k)) {
+                  console.log('  audit:', k, 'score:', v.score);
+                  if (v.details && v.details.items) {
+                    v.details.items.slice(0,5).forEach(i => {
+                      console.log('    snippet:', JSON.stringify(i.node?.snippet));
+                      console.log('    explanation:', i.node?.explanation);
+                    });
+                  }
+                }
+              });
+            }
+          });
+          "
+
       - name: Assert thresholds
         run: lhci assert --config=lighthouserc.cjs
 
