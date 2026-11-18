@@ -7,7 +7,7 @@
 
 <script is:inline data-astro-rerun>
   (function () {
-    var container = document.querySelector(".giscus");
+    const container = document.querySelector(".giscus");
     if (!container) return;
 
     // Already loaded (e.g. bfcache restore)
@@ -16,12 +16,12 @@
     container.innerHTML = "";
 
     function loadGiscus() {
-      var theme =
+      const theme =
         document.documentElement.getAttribute("data-theme") === "dark"
           ? "dark"
           : "light";
 
-      var s = document.createElement("script");
+      const s = document.createElement("script");
       s.src = "https://giscus.app/client.js";
       s.setAttribute("data-repo", "devkoriel/blog-koriel-kr");
       s.setAttribute("data-repo-id", "R_kgDORVH_1w");
@@ -41,7 +41,7 @@
 
     // Lazy-load: only fetch Giscus when user scrolls near the comments section
     if ("IntersectionObserver" in window) {
-      var observer = new IntersectionObserver(
+      const observer = new IntersectionObserver(
         function (entries) {
           if (entries[0].isIntersecting) {
             observer.disconnect();
@@ -59,8 +59,8 @@
   // Theme sync observer — register once globally
   if (!window._giscusObs) {
     window._giscusObs = new MutationObserver(function () {
-      var theme = document.documentElement.getAttribute("data-theme");
-      var frame = document.querySelector("iframe.giscus-frame");
+      const theme = document.documentElement.getAttribute("data-theme");
+      const frame = document.querySelector("iframe.giscus-frame");
       if (frame) {
         frame.contentWindow.postMessage(
           { giscus: { setConfig: { theme: theme === "dark" ? "dark" : "light" } } },
