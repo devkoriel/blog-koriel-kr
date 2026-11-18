@@ -1,6 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":automergeStableNonMajor",
+    ":automergeDigest",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "platformAutomerge": false,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "description": "Astro 5 bundles shiki 3, and transformers from shiki 4 fail astro check (#66). Lift this with the Astro major that moves to shiki 4.",
+      "matchPackageNames": ["@shikijs/transformers"],
+      "allowedVersions": "<4"
+    }
   ]
 }

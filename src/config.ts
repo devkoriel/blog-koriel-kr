@@ -1,7 +1,7 @@
 export const SITE = {
   website: "https://blog.koriel.kr/",
   author: "Jinsoo Heo",
-  profile: "https://koriel.link/",
+  profile: "https://koriel.kr/",
   desc: "DevOps, Kubernetes, Web3, and infrastructure engineering notes by Jinsoo Heo.",
   title: "devkoriel",
   ogImage: "astropaper-og.jpg",
