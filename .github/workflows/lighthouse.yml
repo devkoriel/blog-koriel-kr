@@ -160,9 +160,13 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: lighthouse-${{ matrix.preset }}
+          # .lighthouseci is a dot directory, which upload-artifact skips by default.
+          # lhr-* are the raw collect outputs; manifest.json points at the *.report.* copies.
           path: |
             .lighthouseci/
+            !.lighthouseci/lhr-*
             lighthouse-summary.md
+          include-hidden-files: true
           retention-days: 14
 
   badges:
